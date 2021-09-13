@@ -1,0 +1,3 @@
+# https://unix.stackexchange.com/questions/226089/how-to-install-service-command-in-a-stable-debian
+PATH=$PATH:/usr/sbin
+

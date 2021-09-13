@@ -1,0 +1,12 @@
+# installare sudo
+# https://phoenixnap.com/kb/create-a-sudo-user-on-debian
+apt update
+apt install sudo
+usermod -aG <your-username>
+nano /etc/sudoers
+
+# Full access for members of the sudo group
+%sudo   ALL=(ALL:ALL) ALL
+# User privilege specification
+root    ALL=(ALL:ALL) ALL  
+

@@ -1,0 +1,28 @@
+https://wiki.debian.org/bcm43xx
+https://wiki.debian.org/it/WiFi/HowToUse
+
+https://guide.debianizzati.org/index.php/Broadcom_BCM43xx:_installazione_e_configurazione
+https://guide.debianizzati.org/index.php/Configurazione_di_una_connessione_wireless
+
+lspci -nn | grep -i wireless
+
+modprobe b43
+iwlist scan
+ifup wlan0
+
+error supplicant:
+https://askubuntu.com/questions/346338/bcm4311-wireless-works-with-b43-modprobe-then-stops-advice
+echo b43 >> /etc/modules
+grep "blacklist b43" /etc/modprobe.d/*
+comment blacklist b43
+reboot
+
+https://linuxconfig.org/how-to-connect-to-wifi-from-the-cli-on-debian-10-buster
+sudo iwlist wlan0 scan | grep -i ssid
+sudo wpa_passphrase networkname password > /etc/wpa_supplicant/wpa_supplicant.conf
+
+iwgetid
+iwconfig
+nmcli dev wifi
+nmcli con down CONNECTION_NAME
+

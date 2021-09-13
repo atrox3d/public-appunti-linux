@@ -1,0 +1,25 @@
+situazione:
+
+- configurato eth0 come unmanaged tramite /etc/network/interfaces:
+	auto eth0
+	iface eth0 inet static
+		address         192.168.1.50
+	        netmask         255.255.255.0
+	        network         192.167.1.0
+	        broadcast       192.168.1.255
+	        gateway         192.168.1.254
+	        dns-nameservers 1.1.1.1 8.8.8.8 192.168.1.254
+
+- ad ogni reboot il file /etc/resolv.conf viene azzerato
+
+possibili soluzioni:
+
+- modificare il file /etc/NetworkManager/NetworkManager.conf
+	- aggiungere nella sezione [main] la riga:
+		dns=none
+
++ modificare il file /etc/dhcp/dhclient.conf
+	- rimuovere il commento dalla riga:
+		#prepend domain-name-servers 127.0.0.1;
+	- sostituire 127.0.0.1 con ip dns:
+		prepend domain-name-servers 1.1.1.1 8.8.8.8 192.168.1.254;
