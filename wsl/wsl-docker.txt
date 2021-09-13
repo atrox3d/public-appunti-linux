@@ -1,0 +1,91 @@
+###############################################################################
+#
+#	install wsl2
+#
+#	file://./wsl2.txt
+#
+###############################################################################
+#
+#	https://andrewlock.net/installing-docker-desktop-for-windows/
+#
+#	download docker desktop
+#
+#	https://www.docker.com/products/docker-desktop
+#
+###############################################################################
+https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe
+###############################################################################
+#
+#	logout and login
+#
+###############################################################################
+#
+#	use docker from cmd/powershell
+#
+###############################################################################
+#
+# image commands
+#
+###############################################################################
+docker image ls					# list images
+###############################################################################
+#
+# container commands
+#
+###############################################################################
+docker run IMAGE								# creates and runs a container from IMAGE
+docker run -p HOSTPORT:CONTAINERPORT IMAGE		# creates and runs a container from IMAGE
+docker run -it IMAGE							# creates and runs a container from IMAGE AND opens shell
+
+docker exec CONTAINER command					# runs a command inside CONTAINER
+
+docker ps										# list of current running containers
+docker ps -a									# list of all containers
+
+docker rm CONTAINER								# remove a container if not running
+docker rm -f CONTAINER							# force remove a container even if running
+
+docker commit CONTAINER [tagname]				# saves (modified) CONTAINER as image with optional tagname
+###############################################################################
+#
+# examples
+#
+###############################################################################
+docker run -d --name ubuntu -v /home/***REMOVED***:/***REMOVED*** ubuntu bash -c "touch /***REMOVED***/***REMOVED*** && tail -f /dev/null"
+# command breakdown
+docker run											# run container
+-d 													# background (detached)
+--name ubuntu 										# tag container
+-v /home/***REMOVED***:/***REMOVED*** 								# bind mount localpath:containerpath
+ubuntu 												# image name
+bash -c "tail -f /dev/null"							# keep container active
+###############################################################################
+#
+# volumes
+#
+###############################################################################
+docker volume create todo-db						# create volume
+docker volume inspect todo-db						# inspect volume
+#
+# same command but with volumes
+#
+docker run -d --name ubuntu -v todo-db:/etc/todo-db ubuntu bash -c "tail -f /dev/null"
+docker exec ubuntu ls /etc/todo-db					# list volume content
+#
+#	docker desktop windows volumes path
+#
+\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\
+###############################################################################
+#
+# bind mount network share
+#
+###############################################################################
+#
+#	/etc/fstab
+#
+-------------------------------------------------------------------------------
+z:                              /mnt/z          drvfs   defaults    0 0
+//192.168.1.10/users/***REMOVED***/code /mnt/***REMOVED***code  drvfs   defaults    0 0
+-------------------------------------------------------------------------------
+docker run --rm -d --name ubuntu -v /mnt/z:/z ubuntu bash -c "tail -f /dev/null"
+docker exec ubuntu ls /z

@@ -1,0 +1,144 @@
+###############################################################################
+#
+# ssh to acerw10 to wsl ubuntu
+#
+###############################################################################
+ssh -t nbw10
+ssh -t nbw10 wsl -d Ubuntu18|Ubuntu20
+ssh -t nbw10 ssh -t Ubuntu18|Ubuntu20
+ssh -t nbw10 ssh -t ***REMOVED***@localhost -p 2100|2200
+
+###############################################################################
+#
+# ssh port forwarding syntax
+#
+###############################################################################
+ssh [-f -N] -L [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT [USER@]SSH_SERVER
+
+where:
+
+ssh					# ssh command
+[ -f ]				# background
+[ -N ]				# do not execute command (required for -f)
+-L                  # enable port forwarding
+[LOCAL_IP:]         # local ip (default localhost) 
+LOCAL_PORT          # local port to send connections to
+:                   # 
+DESTINATION         # the remote server address seen from the jump ssh server (e.g. localhost of jump ssh server)
+:                   # 
+DESTINATION_PORT    # destination port of the destination server to send connections to
+[USER@]SSH_SERVER   # login of the jump ssh server
+
+the section [LOCAL_IP:]LOCAL_PORT:DESTINATION:DESTINATION_PORT can be repeated for multiple hosts/ports
+
+###############################################################################
+#
+# ssh local port forward to acerw10 to localhost ubuntu
+#
+###############################################################################
+# 1)
+start ssh  -f -N -L 2100:localhost:2100 nbw10
+start ssh  -f -N -L 2200:localhost:2200 nbw10
+# OR)
+start ssh  -f -N -L 2200:localhost:2200 -L 2100:localhost:2100 nbw10 
+# 2)
+ssh nbw10 wsl -d ubuntu18 -u root service ssh restart
+ssh nbw10 wsl -d ubuntu20 -u root service ssh restart
+# 3)
+ssh -t nbw10 wsl -d ubuntu18
+ssh -t nbw10 wsl -d ubuntu20
+#
+#	NOT WORKING
+#
+# start ssh  -f -L 2100:localhost:2100 nbw10 "wsl -d ubuntu18 -u root service ssh restart"
+# start ssh  -f -L 2200:localhost:2200 nbw10 "wsl -d ubuntu20 -u root service ssh restart"
+# start ssh  -f -L 2200:localhost:2200 -L 2100:localhost:2100 nbw10 "wsl -d ubuntu20 -u root service ssh restart ^& wsl -d ubuntu18 -u root service ssh restart"
+
+###############################################################################
+#
+# find process id, name and commandline in windows
+#
+###############################################################################
+wmic process where "Name like '%ssh%'" get processid,name,commandline
+
+taskkill /f /pid {pid}
+
+# check sshd status
+ssh nbw10 "wsl -d ubuntu20 while :; do service ssh status;sleep 1;done"
+ssh nbw10 'wsl -d ubuntu20 while :; do echo "$(date +%d/%m/%Y-%H:%M:%S) $(service ssh status)";sleep 1;done'
+
+# start ssh
+ssh nbw10 "wsl -d ubuntu20 -u root service ssh start"
+###############################################################################
+#
+#
+# WSL SSH CONNECTIONS
+#
+#
+###############################################################################
+#
+# 1) jump hosts - commandline
+#
+# test mount: ok
+#
+###############################################################################
+ssh -J nbw10 ***REMOVED***@localhost -p 2100
+ssh -J nbw10 ***REMOVED***@localhost -p 2200
+###############################################################################
+#
+# 2) jump hosts - .ssh/config
+#
+# test mount: ok
+#
+###############################################################################
+ssh ubuntu18
+ssh ubuntu20
+
+.ssh/config:
+	################################################################################
+	#
+	#
+	#
+	# WSL: ssh jump proxy to w10 wsl on notebook
+	#
+	#
+	#
+	################################################################################
+	host	jump
+			hostname 	192.168.1.40
+			user		***REMOVED***
+
+	host	ubuntu20
+			hostname	localhost
+			user		***REMOVED***
+			port		2200
+			ProxyJump	jump
+
+	host	ubuntu18
+			hostname	localhost
+			user		***REMOVED***
+			port		2100
+			ProxyJump	jump
+###############################################################################
+#
+# 3) ssh port forwarding
+#
+# test mount: ok
+#
+###############################################################################
+ssh  -f -N -L 2200:localhost:2200 -L 2100:localhost:2100 nbw10
+ssh localhost -p2100
+ssh localhost -p2200
+###############################################################################
+#
+# 4) ssh to nbw10 and wsl
+#
+# test mount: NOT OK
+#
+###############################################################################
+ssh nbw10
+wsl -d ubuntu18
+wsl -d ubuntu20
+	OR
+ssh -t nbw10 wsl -d ubuntu18
+ssh -t nbw10 wsl -d ubuntu20

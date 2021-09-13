@@ -1,0 +1,54 @@
+###############################################################################
+#
+#
+# wsl services
+#
+#
+###############################################################################
+#
+# mount
+#
+###############################################################################
+fstab:
+//192.168.1.10/users/***REMOVED***/code  /mnt/z   drvfs   defaults    0 0
+
+mount:
+mount -t drvfs //192.168.1.10/users/***REMOVED***/code /mnt/z
+###############################################################################
+#
+# openssh
+#
+###############################################################################
+crontab:
+# https://askubuntu.com/a/1323943
+@reboot sudo service ssh start
+
+commandline ubuntu:
+sudo service ssh start
+
+commandline wsl:
+wsl -d ubuntu18 -u root service ssh start
+wsl -d ubuntu20 -u root service ssh start
+###############################################################################
+#
+# start wsl services
+#
+# to access network shares in ubuntu wsl when connecting via ssh to windows 10
+# and ensure sshd is working properly
+# it is necessary to :
+#   - remount them via net use /u:user password
+#   - shutdown wls
+#   - for each distro:
+#      - restart sshd
+#      - mount fstab
+#
+# wsl-start.cmd should be run from the machine, not via ssh
+#
+###############################################################################
+%userprofile%\wsl-start.cmd
+-------------------------------------------------------------------------------
+/etc/fstab
+-------------------------------------------------------------------------------
+LABEL=cloudimg-rootfs   /        ext4   defaults        0 0
+z:                              /mnt/z          drvfs   defaults    0 0
+//server/path/to/share 			/mnt/share		drvfs   defaults    0 0
