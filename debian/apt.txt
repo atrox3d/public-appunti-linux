@@ -1,0 +1,6 @@
+N: Repository 'http://deb.debian.org/debian buster InRelease' changed its 'Suite' value from 'stable' to 'oldstable'
+N: Repository 'http://deb.debian.org/debian-security buster/updates InRelease' changed its 'Suite' value from 'stable' to 'oldstable'
+N: Repository 'http://deb.debian.org/debian buster-updates InRelease' changed its 'Suite' value from 'stable-updates' to 'oldstable-updates'
+
+https://www.nixcraft.com/t/debian-says-it-changed-its-suite-value-from-stable-to-oldstable/3924/1
+
