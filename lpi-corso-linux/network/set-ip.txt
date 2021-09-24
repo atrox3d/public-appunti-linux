@@ -1,0 +1,7 @@
+sudo ip address add 19.168.1.51 dev eth0
+sudo ip address replace 19.168.1.51 dev eth0
+
+sudo ifconfig eth0 192.168.1.52
+sudo ip route add default via 192.168.1.254 dev eth0
+
+

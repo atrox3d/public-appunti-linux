@@ -1,0 +1,6 @@
+sudo ip link set eth0 {up|down}
+
+sudo ifconfig eth0 {up|down}
+
+sudo {ifup|ifdown} eth0
+

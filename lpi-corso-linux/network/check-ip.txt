@@ -1,0 +1,7 @@
+ip addr
+ip addr show [dev eth0]
+
+ifconfig
+ifconfig [eth0]
+
+
