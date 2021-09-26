@@ -1,0 +1,21 @@
+who
+w
+last
+
+adduser: interattivo
+useradd: non interattivo
+useradd username \
+	-c "comment" \
+	-d /home/username \
+	-m \			# create home
+	-G sudo			# add to groups
+
+userdel username
+userdel -r username
+
+groupadd
+groupdel
+
+getent passwd
+getent group
+
