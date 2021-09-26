@@ -1,0 +1,1 @@
+zip -j archivio.zip ../in/*

@@ -1,0 +1,1 @@
+tar -cvjf arch.bz2.tar -C ../in $(cd ../in;ls)

@@ -1,0 +1,1 @@
+tar -cvzf arch.gz.tar -C ../in $(cd ../in;ls)

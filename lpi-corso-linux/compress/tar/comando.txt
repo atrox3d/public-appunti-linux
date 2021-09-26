@@ -1,0 +1,1 @@
+tar -cvf tar/arch.tar -C in/ $(cd in;ls)
