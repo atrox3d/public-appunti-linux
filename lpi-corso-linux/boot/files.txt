@@ -1,0 +1,132 @@
+#1 BIOS/UEFI 
+    #2 GRUB (initramfs.img)
+        #3 KERNEL
+            #4 INIT SYSTEM (systemd, upstart, openrc)
+                #5 DISPLAY MANAGER (login)
+                    #6 DISPLAY SERVER (X11, WAYLAND)
+                    #6 DESKTOP ENVIRONMENT (KDE, gnome, xfce, ...)
+#1
+/boot/efi/EFI/*					distribuzioni installate
+#2
+/boot/vmlinuz-<versione>-<SO>-piattaforma	/boot/vmlinuz-5.10.0-kali7-amd64
+#3
+find /lib/modules/<versione>-<SO>-piattaforma/ -iname "*.ko*" 
+
+						find /lib/modules/5.10.0-kali9-amd64/ -iname "*.ko*" | less
+#4
+/sbin/init --version
+OR
+ll /sbin/init					/lib/systemd/systemd /sbin/init -> /lib/systemd/systemd
+
+systemctl status servicename
+service servicename status
+journalctl -u servicename
+#5
+ls -l /etc/systemd/system/display-manager.service
+lrwxrwxrwx 1 root root 35 Aug 24 15:41 /etc/systemd/system/display-manager.service -> /lib/systemd/system/lightdm.service
+systemctl status lightdm
+
+login
+/etc/passwd
+/etc/pam.d/<something>
+
+XDG_SESSION_TYPE=x11 #or wayland
+
+lshw -v video
+
+DESKTOP_SESSION=
+/usr/share/xsessions/
+
+
+
+BONUS
+screenfetch
+
+         _,met$$$$$gg.           ***REMOVED***@debian
+      ,g$$$$$$$$$$$$$$$P.        OS: Debian 10 buster
+    ,g$$P""       """Y$$.".      Kernel: i686 Linux 4.19.0-17-686-pae
+   ,$$P'              `$$$.      Uptime: 23h 43m
+  ',$$P       ,ggs.     `$$b:    Packages: 775
+  `d$$'     ,$P"'   .    $$$     Shell: bash 5.0.3
+   $$P      d$'     ,    $$P     CPU: AMD Athlon 64 3000+ @ 1.8GHz [56.0°C]
+   $$:      $$.   -    ,d$$'     GPU: GeForce4 440 Go 64M
+   $$\;      Y$b._   _,d$P'      RAM: 67MiB / 495MiB
+   Y$$.    `.`"Y$$$$P"'         
+   `$$b      "-.__              
+    `Y$$                        
+     `Y$$.                      
+       `$$b.                    
+         `Y$$b.                 
+            `"Y$b._             
+                `""""           
+
+..............                                  
+            ..,;:ccc,.                           ***REMOVED***@kali-lenovo
+          ......''';lxO.                         OS: Kali Linux 
+.....''''..........,:ld;                         Kernel: x86_64 Linux 5.10.0-kali9-amd64
+           .';;;:::;,,.x,                        Uptime: 12h 28m
+      ..'''.            0Xxoc:,.  ...            Packages: 2313
+  ....                ,ONkc;,;cokOdc',.          Shell: bash 5.1.8
+ .                   OMo           ':ddo.        Resolution: 1366x768
+                    dMc               :OO;       DE: Xfce
+                    0M.                 .:o.     WM: Xfwm4
+                    ;Wd                          WM Theme: Kali-Dark
+                     ;XO,                        GTK Theme: Kali-Dark [GTK2]
+                       ,d0Odlc;,..               Icon Theme: Flat-Remix-Blue-Dark
+                           ..',;:cdOOd::,.       Font: Cantarell 11
+                                    .:d;.':;.    Disk: 12G / 440G (3%)
+                                       'd,  .'   CPU: AMD E1-6010 APU with AMD Radeon R2 Graphics @ 2x 1.35GHz
+                                         ;l   .. GPU: AMD/ATI Mullins [Radeon R2 Graphics]
+                                          .o     RAM: 763MiB / 3387MiB
+                                            c   
+                                            .'  
+                                             .  
+
+
+neofetch 
+       _,met$$$$$gg.          ***REMOVED***@debian 
+    ,g$$$$$$$$$$$$$$$P.       ------------ 
+  ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 10 (buster) i686 
+ ,$$P'              `$$$.     Host: Presario R3200 (PS716EA#ABZ) F.34 
+',$$P       ,ggs.     `$$b:   Kernel: 4.19.0-17-686-pae 
+`d$$'     ,$P"'   .    $$$    Uptime: 23 hours, 46 mins 
+ $$P      d$'     ,    $$P    Packages: 786 (dpkg) 
+ $$:      $$.   -    ,d$$'    Shell: bash 5.0.3 
+ $$;      Y$b._   _,d$P'      Terminal: /dev/pts/0 
+ Y$$.    `.`"Y$$$$P"'         CPU: AMD Athlon 64 3000+ (1) @ 1.800GHz 
+ `$$b      "-.__              GPU: NVIDIA GeForce4 440 Go 64M 
+  `Y$$                        Memory: 73MiB / 495MiB                                                                      
+   `Y$$.
+     `$$b.                                            
+       `Y$$b.
+          `"Y$b._
+              `"""
+
+neofetch 
+..............                                     ***REMOVED***@kali-lenovo 
+            ..,;:ccc,.                             -----------------                                                      
+          ......''';lxO.                           OS: Kali GNU/Linux Rolling x86_64                                      
+.....''''..........,:ld;                           Host: 80E3 Lenovo G50-45                                               
+           .';;;:::;,,.x,                          Kernel: 5.10.0-kali9-amd64                                             
+      ..'''.            0Xxoc:,.  ...              Uptime: 12 hours, 34 mins                                              
+  ....                ,ONkc;,;cokOdc',.            Packages: 2338 (dpkg)                                                  
+ .                   OMo           ':ddo.          Shell: bash 5.1.8                                                      
+                    dMc               :OO;         Resolution: 1366x768                                                   
+                    0M.                 .:o.       DE: Xfce 4.16                                                          
+                    ;Wd                            WM: Xfwm4                                                              
+                     ;XO,                          WM Theme: Kali-Dark                                                    
+                       ,d0Odlc;,..                 Theme: Kali-Dark [GTK2/3]                                              
+                           ..',;:cdOOd::,.         Icons: Flat-Remix-Blue-Dark [GTK2/3]                                   
+                                    .:d;.':;.      Terminal: qterminal                                                    
+                                       'd,  .'     Terminal Font: Bitstream Vera Sans Mono 12                             
+                                         ;l   ..   CPU: AMD E1-6010 APU with AMD Radeon R2 Graphics (2) @ 1.350GHz        
+                                          .o       GPU: AMD ATI Radeon R2 Graphics                                        
+                                            c      Memory: 500MiB / 3387MiB                                               
+                                            .'                                                                            
+                                             .                                                                            
+                                                                           
+
+
+
+
+ls /usr/share/applications/			# desktop applications menu
