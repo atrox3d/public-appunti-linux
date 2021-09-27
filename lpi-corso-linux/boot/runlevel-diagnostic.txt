@@ -1,0 +1,9 @@
+#RUNLEVEL
+    0   halt
+    1   single user
+    2   multiuser  
+    3   multiuser + network
+    4   -
+    5   graphical
+    6   reboot
+

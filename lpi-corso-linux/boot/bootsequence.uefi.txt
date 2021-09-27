@@ -1,0 +1,8 @@
+EFI (Intel) dead on 2005
+
+UEFI (Unified Extensible Firmware Interface)
+
+ELILO (EFI LiLo)
+GRUB 2.0
+
+

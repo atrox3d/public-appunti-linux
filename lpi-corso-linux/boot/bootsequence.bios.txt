@@ -1,0 +1,63 @@
+#1	BIOS (Basic Input Output System, 16 bit)
+#	or
+#	UEFI (Unified Extensible Firmware Interface)
+
+#2		POST (Power On Self Test)
+#3			STAGE 1 bootloader (MBR 512 byte): GRUB, LILO
+#4				STAGE 2 bootloader: initrd/kernel
+#5					SO: /sbin/init
+
+#1
+EFI (Intel) dead on 2005
+
+
+#3 
+GRUB (GNU Grand Unified Bootloader)
+LILO (Linux Loader)
+or
+ELILO (EFI LiLo)
+GRUB 2.0
+
+menu:
+linux -> STAGE 2
+windows -> windows bootloader: chain loading
+
+#4 
+initrd (INITIAL RAMDISK)
+initrd initramfs (INITIAL RAM FILESYSTEM)
+
+lsinitrd /boot/initrd.img-$(uname -r)
+lsinitramfs /boot/initrd.img-$(uname -r)
+
+#5
+systemv-init, upstart:
+	/sbin/init (PID 1)
+		other processes
+	jobs
+
+systemd:
+	/sbin/init -> /lib/systemd/systemd
+	units
+		.service
+		.socket
+		.device
+		.mount
+		.automount
+		.target
+		.path
+		.time
+		.snapshot
+		.slice
+		.scope
+
+#RUNLEVEL
+	0	halt
+	1	single user
+	2	multiuser
+	3	multiuser + network
+	4	-
+	5	graphical
+	6	reboot
+
+ 
+

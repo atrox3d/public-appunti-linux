@@ -1,0 +1,5 @@
+# access to hw info without root access
+ls /sys/...
+	ls /sys/block/sda
+	cat /sys/block/sda/ro
+
