@@ -1,0 +1,25 @@
+hardware info:
+	cat /proc/cpuinfo
+	cat /proc/dma
+	cat /proc/interrupts
+	cat /proc/ioports
+	cat /proc/meminfo
+	/usr/bin/lspci
+	/usr/bin/lsusb
+
+block devices:
+	ls /dev/sd?
+		/dev/sda
+
+partitions:
+	ls /dev/sd??
+		/dev/sda1
+		/dev/sda2
+		/dev/sda5
+
+drivers:
+	/usr/sbin/insmod
+	/usr/bin/lsmod
+	/usr/sbin/rmmod
+
+
