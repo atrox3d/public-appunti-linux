@@ -6,9 +6,19 @@ adduser: interattivo
 useradd: non interattivo
 useradd username \
 	-c "comment" \
-	-d /home/username \
-	-m \			# create home
-	-G sudo			# add to groups
+	-d /home/username \		# home dir
+	-m \					# create home
+	-s /bin/bash			# default shell
+	-G sudo					# add to groups
+
+# per copiare i gruppi da un altro utente
+GROUPS="$(groups username | cut -d':' -f2- | cut -d' -f3-)"
+                   |                         |
+                   |                         +- esclude gruppo omonimo
+				   +- esclude username
+GROUPS="${GROUPS// /,}"		# separa con virgole
+useradd ... -G $GROUPS
+
 
 userdel username
 userdel -r username
