@@ -16,6 +16,8 @@ sudo fdisk /dev/sdb
     p
     w                                                   # write and exit
 
+sudo partprobe /dev/sdb
+
 sudo makeswap /dev/sdb1
 free -m
 sudo swapon /dev/sdb1
