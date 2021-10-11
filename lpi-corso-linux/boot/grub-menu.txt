@@ -2,7 +2,7 @@
 
 sudo nano /etc/default/grub
 	GRUB_TIMEOUT_STYLE=menu
-	GRUB_TIMEOUT_=30
+	GRUB_TIMEOUT=30
 sudo update-grub
 sudo reboot
 
