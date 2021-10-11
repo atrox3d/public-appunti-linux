@@ -1,0 +1,50 @@
+swapon -s
+sudo fdisk /dev/sdb
+	m						# help
+	p						# print
+	d						# delete
+	n						# new partition
+		primary
+		1
+		2048
+		+100m
+	p
+	t						# change partition type
+		L					# list partitions
+		82					# swap
+	p
+	w						# write and exit
+
+sudo makeswap /dev/sdb1
+free -m
+sudo swapon /dev/sdb1
+free -m
+
+sudo blkid /dev/sdb1	# get uuid
+sudo nano /etc/fstab
+	UUID="$uuid"     swap    swap sw,pri=5 0 0
+sudo swapoff -a
+free -m
+sudo swapon -a
+free -m
+
+#####################
+sudo fdisk /dev/sdb
+	#
+mkfs.ext4 /dev/sdb2
+mkdir /mnt/sdb2
+mount /dev/sdb2 /mnt/sdb2
+cat /etc/mtab	# last line
+blkid
+nano /etc/fstab
+	UUID="$uuid"     /mnt/sdb2    ext4 defaults 0 0
+mount -a
+dd if=/dev/zero of=/mnt/sdb2/swapfile bs=10M count=10
+ll /mnt/sdb2/swapfile
+mkswap /mnt/sdb2/swapfile
+chmod 600 /mnt/sdb2/swapfile
+free -m
+swapon -s
+swapon /mnt/sdb2/swapfile
+free -m
+swapon -s
