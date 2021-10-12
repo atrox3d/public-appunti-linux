@@ -24,7 +24,7 @@ mkfs -t ext4 /dev/sdb2	# create fs
 
 # move home
 mount /dev/sdb1 /mnt
-rsync -arv /home /mnt
+rsync -arv /home/ /mnt/
        |||
        ||+- verbose 
        |+- recursive
