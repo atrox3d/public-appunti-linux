@@ -5,6 +5,19 @@
 # GPT (boot: UEFI)
 # fino a 128 partizioni primarie di max 8ZB
 
+# controllare il tipo di partizione di boot
+fdisk -l /dev/sda
+	...
+	Disklabel type: <dos|gpt>
+	...
+
+parted /dev/sda print
+	...
+	Partition Table: <msdos|gpt>
+	...
+
+gdisk -l /dev/sda
+
 
 # mostra le partizioni (MBR)
 	sudo fdisk -l /dev/sd*
