@@ -1,0 +1,12 @@
+IMPORTANTE:
+
+Dopo aver espanso una partizione con fdisk/parted non dimentichiamo di espandere anche il filesystem su di esso con il comando `resize2fs /dev/sdXY`.
+
+Alla stessa maniera, prima di ridurre una partizione riduciamo il filesystem con il comando resize2fs /dev/sdXY <dimensione finale> - ad esempio, `resize2fs /dev/sda2 8GB`
+
+Ricordate:
+- fdisk/gparted vi permettono di modificare la partition table, che è come un indice di dove inizia e finisce ciascun filesystem su disco
+- resize2fs è il tool che permette di espandere o ridurre un filesystem.
+
+Quindi ogni volta che riduciamo una partizione dobbiamo anche ridurre il filesystem (possibilmente prima)
+e ogni volta che la espandiamo dobbiamo poi anche espandere il filesystem fino alla fine della partizione

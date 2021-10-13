@@ -1,0 +1,101 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red26\green26\blue26;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww13420\viewh14920\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 \
+COLDPLUG :\
+expansion cards \'97> PCI cards\
+\
+HOTPLUG:\
+dispositivi usb, firewire\'85 \
+\
+\'97\'97\'97\'97\'97\
+\
+lspci \
+lspci -t (albero - tree)\
+\
+lsusb \
+\
+dal kernel 2.6 i device vengono creati dinamicamente \
+\
+ls /dev/sd? \
+\
+udev crea automaticamente i device in /dev/\
+\
+le versioni precedenti, necessitavano di avere tutte le voci in /dev/ gi\'e0 presenti,\
+perci\'f2 anche quando non erano collegati device, potevamo vedere un interminabile elenco di file sotto /dev/, anche se vuoti\
+\
+con udev vengono dinamicamente creati e rimossi \
+\
+indipendentemente dal fatto che siano device coldplug o hotplug, hanno comunque bisogno di un driver per funzionare\
+\
+con il comando lsmod vediamo tutti i driver che sono stati caricati\
+\
+lsmod | grep pcs*	> se ad esempio vogliamo filtrare il modulo degli speaker\
+\
+NOME MODULO 	|	DIMENSIONE DEL MODULO nel fs	|   numero e nome dei device che ne stan facendo uso\
+\
+per rimuovere un modulo dalla memoria possiamo usare rmmod >> rmmod pcspkr\
+\
+e ora non \'e8 pi\'f9 in uso\
+\
+l\'92opposto sarebbe insmod quindi ci aspettiamo di digitare insmod pcspkr\
+\
+ma insmod richiede il percorso completo del modulo sul filesystem \
+\
+\pard\pardeftab720\sl380
+
+\f1 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 find /lib/modules/$(uname -r)/ -iname "*$1*.ko*" | cut -d/ -f5-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+vedete che usando insmod con il percorso completo   il modulo viene caricato correttamente.\
+notate che il modulo driver ha esensione .ko\
+\
+controlliamo che sia nuovamente caricato !ls\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 per superare l\'92esame di certificazione avrete probabilmente bisogno di saper usare insmod e rmmod, ma probabilmente \'e8 pi\'f9 semplice usare\
+\
+modprobe -r pcspkr per rimuovere il modulo dalla memoria e \
+modprobe pcspkr per caricarlo in memoria. \
+\
+\
+naturalmente questo strumento \'e8 pi\'f9 flessibile e semplice da usare \
+\
+diamo un\'92occhiata alla directory ls /etc/mod*\
+\
+supponiamo che abbia bisogno di cambiare la configurazione di un modulo, \
+magari configurare interrupts o un indirizzo dma da usare con un certo modulo \
+possiamo farlo all\'92interno di modprobe.conf o in un singolo file col nome del modulo\
+\
+\
+il nostro userspace, e normali applicazioni, ( senza super privilegi root) possono accedere all\'92hardware INDIRETTAMENTE tramite il sys filesystem, montato in /sys\
+\
+mount\
+\
+se entriamo al suo interno, possiamo vedere che abbiamo device suddivisi per categoria, come block devices, bus, dispositivi\'85 \
+ho una chiavetta usb collegata, quindi sicuramente la trover\'f2 nei block devices\
+cd block/\
+ls\
+vediamo che abbiamo un certo numero di link simbolici (symbolic links) - specialmente loop devices, particolarmente utilizzati \
+per montare immagini ISO e squash fs \'85 ma sulla destra vediamo anche db e sr0, il cdrom \
+ls -l sdb \
+come vedete \'e8 un link simbolico che punta alla cartella superiore, dentro a devices, vediamo il bus pci a cui si collega l\'92hub usb \
+possiamo spostarci in questa directory \
+cd \'85..:\'85.:\'85\
+\
+ora che sono in questa directory, se diamo un ls  possiamo vedere le propriet\'e0 di questo dispositivo, come le sue partizioni, la sua dimensione, lo stato di sola lettura (1/0) ecc\'85 naturalmente queste cose sono in sola lettura\
+\
+Quindi, i software che vengono eseguiti senza privilegi di root accedono alle periferiche e alle loro propriet\'e0 tramite il sysfs montato nella cartella /sys/ dove i device sono rappresentati sotto forma di symbolic link ai dispositivi\
+\
+\
+\
+\
+\
+\
+}
