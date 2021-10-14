@@ -1,0 +1,22 @@
+cat /proc/interrupts
+           CPU0
+  0:         39   IO-APIC   0-edge      timer
+  1:          9   IO-APIC   1-edge      i8042
+  7:          1   IO-APIC   7-edge      parport0
+  8:          0   IO-APIC   8-edge      rtc0
+  9:        130   IO-APIC   9-fasteoi   acpi
+...
+
+--------------------------------------------------------------
+				quale CPU
+--------------------------------------------------------------
+				CPU0
+--------------------------------------------------------------
+interrupt #		quante 			tipologia				nome
+				interruzioni	interrupt
+--------------------------------------------------------------
+  0:         	39   			IO-APIC   0-edge      	timer
+  1:          	9   			IO-APIC   1-edge      	i8042   <-- tastiera fisica
+--------------------------------------------------------------
+ 
+ 
