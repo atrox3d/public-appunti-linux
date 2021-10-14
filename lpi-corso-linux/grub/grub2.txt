@@ -1,0 +1,36 @@
+# https://wiki.ubuntu-it.org/AmministrazioneSistema/Grub/AggiungereTogliereVoci
+# GRUB 2 (GRUB 1.99)
+ls /boot/grub*
+
+cat device.map
+
+#GRUB 2 conta ancora i dischi da 0 ma le partizioni da 1
+#inoltre può usare la denominazione (hd0,gpt2) o (hd0,msdos2)
+
+cat /boot/grub/grub.cfg
+
+# le configurazioni sono in /etc/grub.d e /etc/default/grub
+
+#cambiare timeout:
+vi /etc/default/grub
+	GRUB_TIMEOUT = 5
+grub2-mkconfig -o /boot/grub2/grub.cfg
+	oppure 
+update-grub
+
+# cambiare default
+grub2-set-default 1
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# vedere le entry generate
+/etc/grub.d/10_linux
+
+##############################
+/boot/grub/grub.cfg
+/etc/grub.d/*
+/etc/default/grub
+
+grub-mkconfig -o /boot/grub/grub.cfg
+update-grub
+
+grub-install

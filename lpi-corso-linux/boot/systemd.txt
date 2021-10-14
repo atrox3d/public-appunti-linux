@@ -12,6 +12,10 @@ Runlevel:     Target:
 5             graphical.target
 6             reboot.target
 
+
+# visualizzare i target correnti
+systemctl list-units --type target --state active
+
 Su tutte le distro più recenti (dove systemd è il sistema di init di default) per cambiare boot target scriviamo:
 	# systemctl isolate multi-user.target
 oppure
