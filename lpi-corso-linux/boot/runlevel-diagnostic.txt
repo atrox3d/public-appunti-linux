@@ -8,7 +8,7 @@
     6   reboot
 
 # boot in runlevel 1 - rescue mode
-	- al menu GRUB premere e sulla voce interessata
+	- al menu GRUB premere e sulla voce interessata (kernel)
 	- spostarsi alla fine della riga di caricamento del kernel
 		linux...
 	- digitare il runlevel
