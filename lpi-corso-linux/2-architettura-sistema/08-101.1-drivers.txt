@@ -140,3 +140,25 @@ ls /sys/
 ls /sys/block/
 	loop0  loop1  loop2  loop3  loop4  loop5  loop6  loop7  sda  sr0
 
+# dopo aver inserito una chiavetta usb
+ls /sys/block/
+	loop0  loop1  loop2  loop3  loop4  loop5  loop6  loop7  sda  sdb  sr0
+                                                             ***
+
+ls -l /sys/block/sdb
+	lrwxrwxrwx 1 root root 0 Oct 15 07:55 /sys/block/sdb -> ../devices/pci0000:00/0000:00:02.2/usb1/1-2/1-2:1.0/host2/target2:0:0/2:0:0:0/block/sdb
+
+cd /sys/devices/pci0000:00/0000:00:02.2/usb1/1-2/1-2:1.0/host2/target2:0:0/2:0:0:0/block/sdb
+ls
+	alignment_offset  dev                events             ext_range  inflight   power  removable  size    subsystem
+	bdi               device             events_async       hidden     integrity  queue  ro         slaves  trace
+	capability        discard_alignment  events_poll_msecs  holders    mq         range  sdb1       stat    uevent
+
+cat ro
+	0
+
+cat size
+	125038592
+
+ls -d sdb?
+	sdb1  sdb2
