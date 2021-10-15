@@ -1,0 +1,45 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 AndaleMono;}
+{\colortbl;\red255\green255\blue255;\red245\green245\blue245;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 \'f9\
+GRUB 2 (GRUB 1.99)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+ls /boot/grub2\
+\
+cat device.map\
+\
+GRUB 2 conta ancora i dischi da 0 ma le partizioni da 1\
+inoltre pu\'f2 usare la denominazione (hd0,gpt2) o (hd0,msdos2)\
+\
+cat grub.cfg\
+\
+le configurazioni sono in /etc/grub.d e /etc/default/grub\
+\
+
+\b cambiare timeout:\
+\pard\pardeftab720
+
+\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 vi /etc/default/grub\
+	GRUB_TIMEOUT = 5\
+&& grub2-mkconfig -o /boot/grub2/grub.cfg\
+oppure update-grub\
+\
+
+\b cambiare default
+\b0 \
+\
+grub2-set-default 1\
+&& grub2-mkconfig -o /boot/grub2/grub.cfg\
+\
+vedere le entry generate\
+\pard\pardeftab720
+
+\f1\fs22 \cf0 \cb2 \expnd0\expndtw0\kerning0
+/etc/grub.d/10_linux\
+}
