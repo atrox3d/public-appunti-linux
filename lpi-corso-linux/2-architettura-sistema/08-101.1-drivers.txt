@@ -1,0 +1,142 @@
+# dispositivi coldplug
+dispositivi che devono essere collegati a macchina spenta
+
+# dispositivi hotplug
+dispositivi come usb, firewire che possono essere collegati a macchina accesa
+
+# lista dispositivi PCI
+lspci
+
+indirizzo nome
+
+00:00.0 Host bridge: NVIDIA Corporation nForce3 Host Bridge (rev a4)
+00:01.0 ISA bridge: NVIDIA Corporation nForce3 LPC Bridge (rev a6)
+00:01.1 SMBus: NVIDIA Corporation nForce3 SMBus (rev a4)
+00:02.0 USB controller: NVIDIA Corporation nForce3 USB 1.1 (rev a5)
+00:02.1 USB controller: NVIDIA Corporation nForce3 USB 1.1 (rev a5)
+00:02.2 USB controller: NVIDIA Corporation nForce3 USB 2.0 (rev a2)
+00:06.0 Multimedia audio controller: NVIDIA Corporation nForce3 Audio (rev a2)
+00:06.1 Modem: NVIDIA Corporation nForce3 Audio (rev a2)
+00:08.0 IDE interface: NVIDIA Corporation nForce3 IDE (rev a5)
+00:0a.0 PCI bridge: NVIDIA Corporation nForce3 PCI Bridge (rev a2)
+00:0b.0 PCI bridge: NVIDIA Corporation nForce3 AGP Bridge (rev a4)
+00:18.0 Host bridge: Advanced Micro Devices, Inc. [AMD] K8 [Athlon64/Opteron] HyperTransport Technology Configuration
+00:18.1 Host bridge: Advanced Micro Devices, Inc. [AMD] K8 [Athlon64/Opteron] Address Map
+00:18.2 Host bridge: Advanced Micro Devices, Inc. [AMD] K8 [Athlon64/Opteron] DRAM Controller
+00:18.3 Host bridge: Advanced Micro Devices, Inc. [AMD] K8 [Athlon64/Opteron] Miscellaneous Control
+01:00.0 VGA compatible controller: NVIDIA Corporation NV17M [GeForce4 440 Go 64M] (rev a3)
+02:00.0 FireWire (IEEE 1394): Texas Instruments TSB43AB21 IEEE-1394a-2000 Controller (PHY/Link)
+02:01.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-8100/8101L/8139 PCI Fast Ethernet Adapter (rev 10)
+02:02.0 Network controller: Broadcom Limited BCM4306 802.11b/g Wireless LAN Controller (rev 03)
+02:04.0 CardBus bridge: Texas Instruments PCI1620 PC Card Controller (rev 01)
+02:04.1 CardBus bridge: Texas Instruments PCI1620 PC Card Controller (rev 01)
+02:04.2 System peripheral: Texas Instruments PCI1620 Firmware Loading Function (rev 01)
+
+
+# visualizzazione ad albero
+
+lspci -t
+-[0000:00]-+-00.0
+           +-01.0
+           +-01.1
+           +-02.0
+           +-02.1
+           +-02.2
+           +-06.0
+           +-06.1
+           +-08.0
+           +-0a.0-[02-0a]--+-00.0
+           |               +-01.0
+           |               +-02.0
+           |               +-04.0
+           |               +-04.1
+           |               \-04.2
+           +-0b.0-[01]----00.0
+           +-18.0
+           +-18.1
+           +-18.2
+           \-18.3
+
+
+# dal kernel 2.6 udev crea dinamicamente i device sotto /dev/ man mano che vengono collegati
+# prima i device erano sempre presenti, anche se vuoti
+
+# elencare le unità disco
+ls /dev/sd?
+	/dev/sda
+# inserendo una chiavetta usb
+ls /dev/sd?
+	/dev/sda
+	/dev/sdb
+
+# per ottenere la lista dei drivers
+lsmod
+	Module                  Size  Used by
+	ctr                    16384  2
+	ccm                    20480  3
+	squashfs               45056  0
+	zstd_decompress        57344  1 squashfs
+	xxhash                 20480  1 zstd_decompress
+	loop                   28672  0
+	bonding               131072  0
+	nouveau              1601536  1
+	powernow_k8            24576  0
+	edac_mce_amd           28672  0
+	mxm_wmi                16384  1 nouveau
+	ttm                    86016  1 nouveau
+	wl                   6156288  0
+	drm_kms_helper        135168  1 nouveau
+	joydev                 20480  0
+	evdev                  20480  4
+	pcspkr                 16384  0
+	drm                   323584  4 nouveau,ttm,drm_kms_helper
+	...
+
+# visualizzare il driver dei pc speaker
+lsmod | grep pcsp
+	pcspkr                 16384  0
+
+# rimuovere il driver pc speaker
+sudo rmmod pcspkr
+lsmod | grep pcsp
+
+# caricare il driver dello speaker
+sudo insmod <driverpath>
+
+	# dove driverpath si ottiene con $(uname -r) (kernel attuale):
+	/lib/modules/$(uname -r)
+
+	# cercare driver
+	find  /lib/modules/$(uname -r)/ -iname '*pcspkr*.ko*'
+		/lib/modules/4.19.0-17-686-pae/kernel/drivers/input/misc/pcspkr.ko
+
+
+	# quindi:
+	sudo insmod /lib/modules/4.19.0-17-686-pae/kernel/drivers/input/misc/pcspkr.ko
+	lsmod | grep pcsp
+	pcspkr                 16384  0
+
+
+# utilizzo di modprobe
+# rimuovere driver
+sudo modprobe -r pcspkr
+lsmod | grep pcsp
+
+# caricare modulo
+sudo modprobe pcspkr
+lsmod | grep pcsp
+	pcspkr                 16384  0
+
+
+# insmod permette di caricare un modulo arbitrario da un percorso arbitrario
+
+# eventuali configurazioni particolari sono poste sotto
+/etc/modprobe.d/
+
+# sysfs: accesso indiretto a HW senza privilegi di root
+ls /sys/
+	block  bus  class  dev  devices  firmware  fs  hypervisor  kernel  module  power
+
+ls /sys/block/
+	loop0  loop1  loop2  loop3  loop4  loop5  loop6  loop7  sda  sr0
+
