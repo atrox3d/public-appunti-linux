@@ -1,0 +1,9 @@
+d-bus è un mnessage bus system
+	consente alle applicazioni fi parlarsi tra di loro
+	- un demone per eventi come "un nuovo hardware è stato collegato"
+- un demone per login-session per far comunicare le applicazioni in userspace
+
+HAL (hardware abstraction layer)
+	deprecato dal 2008/2010 ed integrato in udev
+	si collega a d-bus e fornisce un db aggiornato in tempo reale sulle periferiche collegate al computer
+	fornisce API
