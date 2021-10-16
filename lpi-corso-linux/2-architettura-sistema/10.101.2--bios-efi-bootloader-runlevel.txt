@@ -1,0 +1,80 @@
+#1	- BIOS (Basic Input Output System, 16 bit)
+		oppure
+	- UEFI (Unified Extensible Firmware Interface, 32/64 bit)
+
+		* EFI è di intel (abbandonato nel 2005) per contribuire allo sviluppo di UEFI
+		* UEFI (unified Extensible Firmware Interface)
+		Uefi può caricare sistemi UEFI e Legacy
+		Uefi è un firmware complesso, richiede una partizione UEFI su disco per fare il boot, e ha supporto ai driver, una shell e può leggere il contenuto delle partizioni.
+
+#2		- POST (Power On Self Test)
+
+#3			- STAGE 1 bootloader (MBR 512 byte):
+					se BIOS:
+						GRUB (GNU Grand Unified Bootloader)
+						LILO (Linux Loader)
+					se EFI:
+						ELILO (EFI LiLo)
+						GRUB 2.0
+					
+					bootloader menu:
+					linux -> STAGE 2
+					windows -> windows bootloader: chain loading
+					
+#4				- STAGE 2 bootloader: initrd/kernel
+					initrd (INITIAL RAMDISK)
+					initrd initramfs (INITIAL RAM FILESYSTEM)
+
+					L’ initial RAM disk o initrd o initramfs, è un file che contiene moduli kernel caricabili. solitamente è un file compresso e viene caricato in ram dal boot loader.
+					il kernel vi accede come se fosse un filesystem montato.
+					su alcuni sistemi come fedora 12 può essere creato con una utility chiamata dracut. 
+					
+					possiamo vederne il contenuto con il comando lsinitrd:
+						lsinitrd /boot/initrd.img-$(uname -r)
+							oppure
+						lsinitramfs /boot/initrd.img-$(uname -r)
+
+#5					- SO: /sbin/init
+						quando il kernel viene caricato, normalmente avvia /sbin/init. questo processo è il primo ad essere avviato e ha PID 1.
+
+						ha il compito di avviare tutti gli altri processi e rimane attivo fino allo spegnimento
+
+						su sistemi che fanno uso del tradizionale System V init, o su sistemi più nuovi che usano l’inizializzazione di Upstart, il processo sarà chiamato init
+						sui sistemi in cui il processo di init è upstart, abbiamo il concetto di jobs.
+
+						nei nuovi sistemi con systemd invece, /sbin/init è un collegamento simbolico a /lib/systemd/systemd.
+						sui sistemi con systemd si utilizzano le units per definire cosa viene eseguito
+						esempi di units sono: .service .socket .device .mount .automount .swap .target .path .timer .snapshot .slice .scope
+
+						se il sistema carica il kernel ma fallisce nell’avviare init, possiamo provare a ripristinarlo avviando un programma differente all’avvio. Ad esempio, specificando init=/bin/sh avvia il sistema in una shell sh con
+						privilegi di root, dal quale possiamo essere in grado di riparare il sistema
+
+
+
+
+#RUNLEVEL
+----------------+-----------------------+-----------------------------------------
+	runlevel	| name					| description
+----------------+-----------------------+-----------------------------------------
+	0			| halt                  | shuts down all the services when the
+                |                       | the system will not be rebooted
+----------------+-----------------------+-----------------------------------------
+	1			| single user           | used for system maintenance
+                |                       | no networking capabilities
+----------------+-----------------------+-----------------------------------------
+	2			| multiuser             | used for system maintenance 
+                | no network support    | and system testing
+----------------+-----------------------+-----------------------------------------
+	3			| multiuser + network   | non-graphical text mode
+                |                       | operations for server systems
+----------------+-----------------------+-----------------------------------------
+	4			| -                     | custom mode
+                |                       | used by SysAdmins
+----------------+-----------------------+-----------------------------------------
+	5			| graphical             | graphical login with same usability as
+                | x11                   | of runlevel 3
+----------------+-----------------------+-----------------------------------------
+	6			| reboot                | shuts down all services when the 
+                |                       | system is being rebooted
+----------------+-----------------------+-----------------------------------------
+
