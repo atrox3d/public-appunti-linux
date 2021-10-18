@@ -1,0 +1,67 @@
+#RUNLEVEL
+-------+--------------------+--------------------+-----------------------------------------
+ run   | name               | systemd            | description
+ level |                    | target             |                  
+-------+--------------------+--------------------+-----------------------------------------
+ 0     | halt               | poweroff.target    | shuts down all the services when the
+       |                    |                    | the system will not be rebooted
+-------+--------------------+--------------------+-----------------------------------------
+ 1     | single user        | rescue.target      | used for system maintenance
+       |                    |                    | no networking capabilities
+-------+--------------------+--------------------+-----------------------------------------
+ 2,3,4 | multiuser + network| multi-user.target  | non-graphical text mode
+       |                    |                    | operations for server systems
+-------+--------------------+--------------------+-----------------------------------------
+ 5     | graphical          | graphical.target   | graphical login with same usability as
+       | x11                |                    | of runlevel 3
+-------+--------------------+--------------------+-----------------------------------------
+ 6     | reboot             | reboot.target      | shuts down all services when the 
+       |                    |                    | system is being rebooted
+-------+--------------------+--------------------+-----------------------------------------
+
+# boot in runlevel 1 - rescue mode
+    - al menu GRUB premere e sulla voce interessata (kernel)
+    - spostarsi alla fine della riga di caricamento del kernel
+        linux...
+    - digitare il runlevel
+    - premere ctrl-x
+    - al reboot inserire password root
+    
+# single-user mode 7 rescue mode
+    systemctl default o ^D per entrare in default mode
+        oppure
+    digitare la password di root per entrare in maintenance mode
+
+# verificare default target su system-V
+	cat /etc/inittab | grep default
+
+# verificare default target su systemd
+	systemctl get-default
+		graphical-tartget
+
+# cambiare default.target
+	systemctl set-default multi-user.target
+		rm /etc/systemd/system/default.target
+		ln -s /usr/lib/systemd/system/multi-user.target /etc/systemd/system/default.target
+
+# elencare links che collegano i runlevel ai target
+	ll -d /lib/systemd/system/run*.target
+		lrwxrwxrwx 1 root root 15 Sep  7 18:37 /lib/systemd/system/runlevel0.target -> poweroff.target
+		lrwxrwxrwx 1 root root 13 Sep  7 18:37 /lib/systemd/system/runlevel1.target -> rescue.target
+		lrwxrwxrwx 1 root root 17 Sep  7 18:37 /lib/systemd/system/runlevel2.target -> multi-user.target
+		lrwxrwxrwx 1 root root 17 Sep  7 18:37 /lib/systemd/system/runlevel3.target -> multi-user.target
+		lrwxrwxrwx 1 root root 17 Sep  7 18:37 /lib/systemd/system/runlevel4.target -> multi-user.target
+		lrwxrwxrwx 1 root root 16 Sep  7 18:37 /lib/systemd/system/runlevel5.target -> graphical.target
+		lrwxrwxrwx 1 root root 13 Sep  7 18:37 /lib/systemd/system/runlevel6.target -> reboot.target
+
+# eseguire boot con una shell invece di systemd
+    - al menu GRUB premere e sulla voce interessata
+    - spostarsi alla fine della riga di caricamento del kernel
+        linux...
+    - digitare
+        init=/bin/bash (o /bin/sh)
+
+    - premere ctrl-x per reboot
+    - whoami
+        root
+
