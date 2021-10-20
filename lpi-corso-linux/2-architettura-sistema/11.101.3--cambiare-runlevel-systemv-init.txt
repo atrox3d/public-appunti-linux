@@ -1,0 +1,40 @@
+# RUNLEVEL
+    0   halt
+    1   single user
+    2   multiuser  
+    3   multiuser + network
+    4   -
+    5   graphical
+    6   reboot
+
+
+
+# parametri ultimo boot
+cat /proc/cmdline
+
+# gestione runlevel
+runlevel
+	N 5		# nessun RL precedente, RL corrente 5
+	3 5		# RL precedente 3, RL corrente 5
+who -r
+         run-level 5  2021-10-08 06:14                   last=3
+telinit <runlevel>
+
+# init scripts
+/etc/init.d/
+
+# runlevel scripts (links ai vari init scripts)
+ls -d /etc/rc*
+	/etc/rc0.d/  /etc/rc1.d/  /etc/rc2.d/  /etc/rc3.d/  /etc/rc4.d/  /etc/rc5.d/  /etc/rc6.d/  /etc/rcS.d/
+
+ls /etc/rc5.d
+	K01apache-htcacheclean  S01avahi-daemon      S01cron          S01dbus             S01rsyslog      S01smbd           S01sudo
+	S01anacron              S01bluetooth         S01cups          S01network-manager  S01samba-ad-dc  S01ssh
+	S01apache2              S01console-setup.sh  S01cups-browsed  S01nmbd             S01saned        S01stop-bootlogd
+
+	Sxxname = START
+	Kxxname = KILL
+
+# manage runlevel scripts
+sudo apt install sysv-rc-conf
+sudo sysv-rc-conf
