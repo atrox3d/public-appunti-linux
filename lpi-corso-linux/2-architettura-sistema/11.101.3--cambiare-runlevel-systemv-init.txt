@@ -8,6 +8,24 @@
     6   reboot
 
 
+# * default runlevel
+# Selezionare runlevel in fase di boot
+# 	da grub, aggiungendo in fondo ai parametri del kernel il numero corrispondente
+
+# Cambiare permanentemente runlevel
+# 	si imposta da /etc/inittab
+# 	"env DEFAULT_RUNLEVEL=3"
+# da UBUNTU SERVER 12.04 è stato spostato in /etc/init/rc-sysinit.conf
+# dall’introduzione di systemd col comando sysctl set-default “nome.target”
+
+# Al volo, da sistema avviato
+# mostrare il run level attuale: “run level” o “who -r”
+# (mostrare con quali parametri è stato avviato il sistema: /proc/cmdline e /proc/version or uname-r)
+# init o telinit (numero) —> per il single user mode: 1, s, S sono la stessa cosa
+
+
+# system-V /etc/inittab
+# vedi ./inittab.txt
 
 # parametri ultimo boot
 cat /proc/cmdline
