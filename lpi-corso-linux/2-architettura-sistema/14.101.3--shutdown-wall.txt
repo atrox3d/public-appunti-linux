@@ -1,0 +1,29 @@
+#
+#	shutdown
+#
+
+# per spegnere o riavviare il sistema è possibile utilizzare
+	init/telinit 0/6
+# con questo modo però gli utenti possono perdere il lavoro
+
+# usando invece shutdown viene prima mandato un messaggio broadcast a tutti gli utenti
+	shutdown -r|h|H|P now|+minutes|time "broadcast message" 
+	#	broadcast message
+	#		init 0|6
+	#			sigterm processi
+
+# simulazione shutdown
+	shutdown -k -r|h|H|P now|+minutes|time "broadcast message" 
+	# broadcast message
+
+# cancellazione shutdown
+	shutdown -c
+
+
+#
+#	wall
+#
+
+wall "message"
+
+echo "message" | wall
