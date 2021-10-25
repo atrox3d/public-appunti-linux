@@ -1,0 +1,88 @@
+################################################################################
+#
+#	journalctl
+#	-r	reverse
+#	-b	boot [index: default last (0) or one from --list-boots (-1, -2, ...)]
+#
+################################################################################
+# tutti i boot
+sudo journalctl
+
+# ultimo boot
+sudo journalctl -b
+
+# ultimo boot partendo dalla fine
+sudo journalctl -rb
+
+# elencare boot precedenti
+sudo journalctl --list-boots 
+
+#
+#	risolvere mancanza di boot precedenti
+# https://askubuntu.com/questions/765315/how-to-find-previous-boot-log-after-ubuntu-16-04-restarts
+
+# visualizzare un boot specifico
+sudo journalctl -b [ index ]
+
+# intervalli temporali
+sudo journalctl --since "1 hour ago"
+sudo journalctl --since "2 minutes ago"
+sudo journalctl --since "2021-01-01"
+sudo journalctl --since "2021-01-01" --until "2021-01-01"
+
+# log di specifico utente
+ID=$(grep avahi: /etc/passwd | cut -d':' -f3)
+sudo journalctl _UID=$ID
+
+
+# == sudo dmesg
+sudo journalctl -k	
+sudo journalctl --dmesg
+
+################################################################################
+# list systemd unit files
+################################################################################
+systemctl list-unit-files
+	UNIT FILE                              STATE           VENDOR PRESET
+	proc-sys-fs-binfmt_misc.automount      static          enabled
+	-.mount                                generated       enabled
+	boot.mount                             generated       enabled
+	dev-hugepages.mount                    static          enabled
+	dev-mqueue.mount                       static          enabled
+	proc-sys-fs-binfmt_misc.mount          disabled        enabled
+	snap-core18-2128.mount                 enabled         enabled
+	...
+
+################################################################################
+# list systemd units
+################################################################################
+systemctl
+	UNIT                                                                                      LOAD   ACTIVE SUB       DESCRIPTION     >
+	proc-sys-fs-binfmt_misc.automount                                                         loaded active waiting   Arbitrary Execut>
+	
+	sys-devices-pci0000:00-0000:00:01.1-ata2-host1-target1:0:0-1:0:0:0-block-sr0.device       loaded active plugged   VBOX_CD-ROM     >
+	
+	sys-devices-pci0000:00-0000:00:03.0-net-enp0s3.device                                     loaded active plugged   82540EM Gigabit >
+	
+	sys-devices-pci0000:00-0000:00:05.0-sound-card0.device                                    loaded active plugged   82801AA AC'97 Au>
+	
+	...
+	
+	-.mount                                                                                   loaded active mounted   Root Mount      >
+	
+	boot.mount                                                                                loaded active mounted   /boot           >
+	
+	dev-hugepages.mount                                                                       loaded active mounted   Huge Pages File >
+
+	...
+
+# filter unit file
+sudo journalctl -u ssh
+sudo journalctl _COMM=sshd
+
+sudo journalctl --unit=<unit-name>
+	sudo journalctl --unit=boot-uefi.mount
+	sudo journalctl --unit=ssh.service
+
+# follow (come tail)
+sudo journalctl -f
