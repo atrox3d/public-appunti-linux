@@ -19,39 +19,41 @@
 # dall’introduzione di systemd col comando sysctl set-default “nome.target”
 
 # Al volo, da sistema avviato
-# mostrare il run level attuale: "run level" o "who -r"
-# (mostrare con quali parametri è stato avviato il sistema: /proc/cmdline e /proc/version or uname-r)
-# init o telinit (numero) —> per il single user mode: 1, s, S sono la stessa cosa
+# 	mostrare il run level attuale: 
+		runlevel
+			N 5		# nessun RL precedente, RL corrente 5
+			3 5		# RL precedente 3, RL corrente 5
+		who -r
+				 run-level 5  2021-10-08 06:14                   last=3
+# 	mostrare con quali parametri è stato avviato il sistema: 
+		cat /proc/cmdline
+			BOOT_IMAGE=/boot/vmlinuz-2.6.32-74-generic root=UUID=132cc7c1-5408-4664-96cc-a14d60fab930 ro quiet splash
+		cat /proc/version
+			Linux version 2.6.32-74-generic (buildd@brownie) (gcc version 4.4.3 (Ubuntu 4.4.3-4ubuntu5.1) ) #142-Ubuntu SMP Tue Apr 28 10:03:02 UTC 2015
+		uname-r
+			2.6.32-74-generic
+			
+#	cambiare runlevel
+# 		init o telinit (numero) —> per il single user mode: 1, s, S sono la stessa cosa
 
 
 # system-V /etc/inittab
 # vedi ./inittab.txt
 
-# parametri ultimo boot
-cat /proc/cmdline
-
-# gestione runlevel
-runlevel
-	N 5		# nessun RL precedente, RL corrente 5
-	3 5		# RL precedente 3, RL corrente 5
-who -r
-         run-level 5  2021-10-08 06:14                   last=3
-telinit <runlevel>
-
 # init scripts
-/etc/init.d/
+	ls /etc/init.d/
 
 # runlevel scripts (links ai vari init scripts)
-ls -d /etc/rc*
-	/etc/rc0.d/  /etc/rc1.d/  /etc/rc2.d/  /etc/rc3.d/  /etc/rc4.d/  /etc/rc5.d/  /etc/rc6.d/  /etc/rcS.d/
+	ls -d /etc/rc*
+		/etc/rc0.d/  /etc/rc1.d/  /etc/rc2.d/  /etc/rc3.d/  /etc/rc4.d/  /etc/rc5.d/  /etc/rc6.d/  /etc/rcS.d/
 
-ls /etc/rc5.d
-	K01apache-htcacheclean  S01avahi-daemon      S01cron          S01dbus             S01rsyslog      S01smbd           S01sudo
-	S01anacron              S01bluetooth         S01cups          S01network-manager  S01samba-ad-dc  S01ssh
-	S01apache2              S01console-setup.sh  S01cups-browsed  S01nmbd             S01saned        S01stop-bootlogd
+	ls /etc/rc5.d
+		K01apache-htcacheclean  S01avahi-daemon      S01cron          S01dbus             S01rsyslog      S01smbd           S01sudo
+		S01anacron              S01bluetooth         S01cups          S01network-manager  S01samba-ad-dc  S01ssh
+		S01apache2              S01console-setup.sh  S01cups-browsed  S01nmbd             S01saned        S01stop-bootlogd
 
-	Sxxname = START
-	Kxxname = KILL
+#		Sxxname = START
+#		Kxxname = KILL
 
 # manage runlevel scripts
 sudo apt install sysv-rc-conf
