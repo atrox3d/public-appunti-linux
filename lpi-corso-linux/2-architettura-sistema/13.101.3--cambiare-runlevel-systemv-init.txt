@@ -40,6 +40,13 @@
 # system-V /etc/inittab
 # vedi ./inittab.txt
 
+# upstart /etc/init/rc-sysinit.conf
+# vedi rc-sysinit.conf
+
+
+# systemd
+# https://mauriziosiagri.wordpress.com/tag/systemd-init/
+
 # init scripts
 	ls /etc/init.d/
 
