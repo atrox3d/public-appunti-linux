@@ -1,0 +1,91 @@
+################################################################################
+#
+#	init systems
+#
+#	https://www.linuxjournal.com/content/ubuntu-ditches-upstart
+#	https://titanwolf.org/Network/Articles/Article?AID=a52e0268-37f5-49f3-ba42-f8ca5d9e6292
+#	https://titanwolf.org/Network/Articles/Article?AID=1c6d5150-1ee5-4def-8da0-69a1507373aa
+#	https://mauriziosiagri.wordpress.com/tag/systemd-init/
+#
+################################################################################
+#
+# https://packagecloud.io/blog/ubuntu-a-journey-from-system-v-to-system-d/
+#
+# Differences between System V and System D
+#
+# 	Ubuntu started with System V Unix OS when it was launched and supported till the 6.10 release. 
+#
+# 	After Ubuntu 6.10, in 2006, it featured the upstart system and changed to System D with Ubuntu 15.04.
+#
+#	Systemv  <=6.10
+#	Upstart  >6.10 <15.04
+#	System D >=15.04
+#
+################################################################################
+
+################################################################################
+#
+# files di configurazione dei servizi
+#
+################################################################################
+	
+	ls /etc/init/
+		acpid.conf               hwclock.conf                     network-manager.conf   tty3.conf
+		...
+		failsafe-x.conf          networking.conf                  ssh.conf               ureadahead-other.conf
+		...
+	
+	less /etc/init/ssh.conf
+		# ssh - OpenBSD Secure Shell server
+		#
+		# The OpenSSH server provides secure shell access to the system.
+
+		description     "OpenSSH server"
+
+		start on filesystem or runlevel [2345]
+		stop on runlevel [!2345]
+
+		respawn
+		respawn limit 10 5
+		umask 022
+		# replaces SSHD_OOM_ADJUST in /etc/default/ssh
+		oom never
+
+		pre-start script
+			test -x /usr/sbin/sshd || { stop; exit 0; }
+			test -e /etc/ssh/sshd_not_to_be_run && { stop; exit 0; }
+			test -c /dev/null || { stop; exit 0; }
+
+			mkdir -p -m0755 /var/run/sshd
+		end script
+
+		# if you used to set SSHD_OPTS in /etc/default/ssh, you can change the
+		# 'exec' line here instead
+		exec /usr/sbin/sshd -D
+
+################################################################################
+#
+#	start e stop
+#
+################################################################################
+# oltre a service ssh stop
+	stop ssh
+	start ssh
+	status ssh
+
+
+################################################################################
+#
+#	mostrare gli eventi dei servizi
+#
+################################################################################
+
+# se disponibile
+	initctl show-config
+# altrimenti
+	for f in /etc/init/*.conf
+	do
+		echo $(basename $f .conf)
+		egrep '^(start|stop)' $f
+	done
+
