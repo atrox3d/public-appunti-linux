@@ -1,4 +1,8 @@
-# RUNLEVEL
+################################################################################
+#
+#		RUNLEVELS
+#
+################################################################################
     0   halt
     1   single user
     2   multiuser  
@@ -8,6 +12,8 @@
     6   reboot
 
 
+
+
 # * default runlevel
 # Selezionare runlevel in fase di boot
 # 	da grub, aggiungendo in fondo ai parametri del kernel il numero corrispondente
@@ -15,8 +21,10 @@
 # Cambiare permanentemente runlevel
 # 	si imposta da /etc/inittab
 # 	"env DEFAULT_RUNLEVEL=3"
-# da UBUNTU SERVER 12.04 è stato spostato in /etc/init/rc-sysinit.conf
-# dall’introduzione di systemd col comando sysctl set-default “nome.target”
+#
+# 	da UBUNTU SERVER 12.04 è stato spostato in /etc/init/rc-sysinit.conf
+# 	dall’introduzione di systemd col comando systemctl set-default “nome.target”
+
 
 # Al volo, da sistema avviato
 # 	mostrare il run level attuale: 
@@ -37,12 +45,36 @@
 # 		init o telinit (numero) —> per il single user mode: 1, s, S sono la stessa cosa
 
 
-# system-V /etc/inittab
+# system-V /etc/inittab (ubuntu <=6.10)
 # vedi ./inittab.txt
 
-# upstart /etc/init/rc-sysinit.conf
+# upstart /etc/init/rc-sysinit.conf (6.10 < ubuntu <15.04)
 # vedi rc-sysinit.conf
 
+################################################################################
+#
+#	init systems
+#
+#	https://www.linuxjournal.com/content/ubuntu-ditches-upstart
+#	https://titanwolf.org/Network/Articles/Article?AID=a52e0268-37f5-49f3-ba42-f8ca5d9e6292
+#	https://titanwolf.org/Network/Articles/Article?AID=1c6d5150-1ee5-4def-8da0-69a1507373aa
+#	https://mauriziosiagri.wordpress.com/tag/systemd-init/
+#
+################################################################################
+#
+# https://packagecloud.io/blog/ubuntu-a-journey-from-system-v-to-system-d/
+#
+# Differences between System V and System D
+#
+# 	Ubuntu started with System V Unix OS when it was launched and supported till the 6.10 release. 
+#
+# 	After Ubuntu 6.10, in 2006, it featured the upstart system and changed to System D with Ubuntu 15.04.
+#
+#	Systemv  <=6.10
+#	Upstart  >6.10 <15.04
+#	System D >=15.04
+#
+################################################################################
 
 # systemd
 # https://mauriziosiagri.wordpress.com/tag/systemd-init/
