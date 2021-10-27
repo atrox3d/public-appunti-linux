@@ -1,0 +1,46 @@
+# visualizzare partizione EFI
+	parted -l
+		Number  Start   End     Size    File system  Name  Flags
+		 1      1049kB  538MB   537MB   fat32              boot, esp
+
+# visualizzare contenuto partizione EFI 
+	mount | grep boot
+		/dev/sda2 on /boot type ext4 (rw,relatime)
+		/dev/sda1 on /boot/efi type vfat (rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+
+	ls /boot/efi/
+		EFI
+
+	# ogni cartella oltre a BOOT per ogni sistema
+	ls /boot/efi/EFI/
+		BOOT  ubuntu [microsoft]
+
+	# ogni OS ha il suo eseguibile grub
+	ls /boot/efi/EFI/ubuntu/
+		BOOTX64.CSV  grub.cfg  grubx64.efi  mmx64.efi  shimx64.efi
+
+
+	file /boot/efi/EFI/ubuntu/grubx64.efi
+		/boot/efi/EFI/ubuntu/grubx64.efi: PE32+ executable (EFI application) x86-64 (stripped to external PDB), for MS Windows
+
+lsblk -ie 7
+NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                         8:0    0   30G  0 disk
+|-sda1                      8:1    0  512M  0 part /boot/efi
+|-sda2                      8:2    0    1G  0 part /boot
+...
+
+tree --charset=ascii /boot/efi/
+/boot/efi/
+`-- EFI
+    |-- BOOT
+    |   |-- BOOTX64.EFI
+    |   |-- fbx64.efi
+    |   `-- mmx64.efi
+    `-- ubuntu
+        |-- BOOTX64.CSV
+        |-- grub.cfg
+        |-- grubx64.efi
+        |-- mmx64.efi
+        `-- shimx64.efi
+
