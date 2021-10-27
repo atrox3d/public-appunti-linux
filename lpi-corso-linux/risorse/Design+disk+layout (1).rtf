@@ -1,0 +1,65 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red163\green217\blue121;\red230\green243\blue125;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16100\viewh16200\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 in linux abbiamo svariati strumenti per visualizzare ed alterare lo schema delle partizioni dei dischi\
+il pi\'f9 largamente utilizzato negli ultimi anni \'e8 stato sicuramente disk\
+quante volte avrete dato il comando \
+fdisk -l \
+per vedere le partizioni e i dischi presenti?\
+fdisk \'e8 un semplice strumento che supporta le partition table a 32bit\
+per questo \'e8 stato largamente utilizzato ai tempi d\'92oro delle partition table MBR\
+recentemente \'e8 stato introdotto un supporto sperimentale anche per lo schema di partizioni GUID \
+ma questo strumento nasce ed \'e8 pensato per funzionare proprio con MBR\
+una valida alternativa che sta probabilmente prendendo piede con la diffusione di GPT (Guid Partition Table) \'e8 parted:\
+la sintassi per elencare i dischi \'e8 analoga a fdisk:\
+parted -l\
+parted supporta sia MBR che GPT, ma per il momento andiamo a creare una partition table MBR per il nostro disco\
+
+\b \
+
+\b0 \
+\cb2 1A) creiamo la tabella delle partizioni sul disco\
+	parted /dev/sdb mklabel msdos\
+\
+
+\b 	msdos
+\b0  (standard mbr partition table) \
+		4 partizioni primarie, massimo 2TB ciascuna\
+		ognuna delle quali pu\'f2 essere una partizione estesa e contenere pi partizioni logiche \
+\
+2A) creiamo una partizione primaria di swap:\
+	parted /dev/sdb -a cylinder mkpart primary linux-swap 2 102\
+\cb1 \
+l\'92opzione -a (align) cylinder mi permette di poter specificare la dimensione della partizione in MB, e sar\'e0 parted ad allineare i cilindri corrispondenti \
+\
+parted /deb/sdb print\
+parted /deb/sdb print free\
+\
+per completare l\'92opera scriviamo un filesystem di swap sulla partizione appena creata:\
+\
+mkswap /dev/sdb1\
+\
+\
+\cb3 1B) creiamo una tabella delle partizioni GPT\
+	parted /dev/sdb mklabel gpt\
+\
+
+\b 	GPT
+\b0  (Guid Partition table)\
+		128 partizioni primarie, massimo 8 ZB ciascuna \
+		\
+		Un pc BIOS non pu\'f2 fare il boot su partizioni GPT (solo i nuovi UEFI possono) \
+		comunque possiamo installare un disco GPT e usarlo come disco secondario, per accedervi a sistema operativo avviato.\
+\
+2B) creiamo una partizione primaria di swap:\
+	parted /dev/sdb mkpart primary linux-swap 2 102\
+\cb1 \
+ parted pu\'f2 anche essere usato in modalit\'e0 interattiva:\
+\
+parted /dev/sdb\
+\
+\
+}

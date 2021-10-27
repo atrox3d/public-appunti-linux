@@ -1,0 +1,13 @@
+IMPORTANTE:
+
+Al minuto 6:00 dopo aver espanso il volume logico con `lvextend /dev/cl/root -L +8G` non dimentichiamo di espandere anche il filesystem su di esso con il comando `resize2fs /dev/cl/root`.
+
+Alla stessa maniera, prima di ridurre un logical volume (minuto 6:50) riduciamo il filesystem con il comando resize2fs /dev/cl/root <dimensione finale> - ad esempio, `resize2fs /dev/cl/root 8GB`
+
+
+Questo vale sempre, sia in LVM che nel sistema di partizioni "classico": 
+- fdisk/gparted vi permettono di modificare la partition table, che è come un indice di dove inizia e finisce ciascun filesystem su disco
+- resize2fs è il tool che permette di espandere o ridurre un filesystem.
+
+Quindi ogni volta che riduciamo una partizione dobbiamo anche ridurre il filesystem (possibilmente prima)
+e ogni volta che la espandiamo dobbiamo poi anche espandere il filesystem fino alla fine della partizione
