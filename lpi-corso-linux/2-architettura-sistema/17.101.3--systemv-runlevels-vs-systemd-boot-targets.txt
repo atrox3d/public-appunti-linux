@@ -1,0 +1,46 @@
+01.3 - SystemV "runlevels" vs "boot targets" di systemd
+Systemd sostituisce il concetto di "runlevel" con il concetto di "boot target".
+
+La seguente tabella sintetizza il boot target equivalente per ciascun runlevel:
+
+
+-------+--------------------+--------------------+-----------------------------------------
+ run   | name               | systemd            | description
+ level |                    | target             |                  
+-------+--------------------+--------------------+-----------------------------------------
+ 0     | halt               | poweroff.target    | shuts down all the services when the
+       |                    |                    | the system will not be rebooted
+-------+--------------------+--------------------+-----------------------------------------
+ 1     | single user        | rescue.target      | used for system maintenance
+       |                    |                    | no networking capabilities
+-------+--------------------+--------------------+-----------------------------------------
+ 2,3,4 | multiuser + network| multi-user.target  | non-graphical text mode
+       |                    |                    | operations for server systems
+-------+--------------------+--------------------+-----------------------------------------
+ 5     | graphical          | graphical.target   | graphical login with same usability as
+       | x11                |                    | of runlevel 3
+-------+--------------------+--------------------+-----------------------------------------
+ 6     | reboot             | reboot.target      | shuts down all services when the 
+       |                    |                    | system is being rebooted
+-------+--------------------+--------------------+-----------------------------------------
+
+
+
+# Su tutte le distro più recenti (dove systemd è il sistema di init di default) per cambiare boot target scriviamo:
+	systemctl isolate multi-user.target
+
+#oppure
+	systemctl isolate graphical.target
+
+# e così via.
+
+
+# Per impostare un boot target predefinito (ad esempio, multi-user.target) dobbiamo prima di tutto abilitarlo:
+	systemctl enable multi-user.target
+
+# e poi:
+	systemctl set-default multi-user.target
+
+
+# Come vedete è più semplice e intuitivo rispetto al vecchio concetto di runlevel.
+
