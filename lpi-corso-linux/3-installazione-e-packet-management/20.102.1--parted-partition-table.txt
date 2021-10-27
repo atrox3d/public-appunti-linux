@@ -1,0 +1,58 @@
+# MBR (boot: BIOS/UEFI)
+# fino a 4 partizioni primarie di max 2TB
+# ognuna delle quali può esseere una partizione estesa contenente più partizioni logiche
+
+# GPT (boot: UEFI)
+# fino a 128 partizioni primarie di max 8ZB
+
+# controllare il tipo di partizione di boot
+fdisk -l /dev/sda
+	...
+	Disklabel type: <dos|gpt>
+	...
+
+parted /dev/sda print
+	...
+	Partition Table: <msdos|gpt>
+	...
+
+gdisk -l /dev/sda
+
+
+# mostra le partizioni (MBR)
+	sudo fdisk -l /dev/sd*
+
+# mostra le partizioni (MBR/GPT)
+	sudo apt install parted
+	sudo parted -l
+	
+# crea partizione mbr
+	sudo parted /dev/sdb mklabel msdos
+	sudo parted /dev/sdb -a cylinder mkpart primary linux-swap 2 102
+	sudo parted /dev/sdb print
+	sudo mkswap /dev/sdb
+
+# crea partizione gpt
+	sudo parted /dev/sdb mklabel gpt
+
+# interattivo
+	sudo parted [ /dev/sdb ]
+		select /dev/sdb
+		print
+		mklabel msdos
+		mkpart
+		<tab, tab>
+		<enter>
+		2mb
+		202mb
+		print
+		quit
+	fdisk -l
+	mount /dev/sdb1 /media
+		ERROR
+	mkfs.ext4 /dev/sdb1
+	mount /dev/sdb1 /media
+	cd /media
+	touch file
+	cd /
+	umount /media
