@@ -1,0 +1,3 @@
+# acpid: demone gestione eventi hw
+# handler evento acpi
+	/etc/acpi/scriptname.sh
