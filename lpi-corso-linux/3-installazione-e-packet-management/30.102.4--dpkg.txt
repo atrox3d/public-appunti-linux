@@ -1,0 +1,114 @@
+#
+# dpkg gestore pacchetti .deb
+#
+
+#
+# esempio: installazione dropbox
+#
+	#
+	# verifica architettura
+	#
+	uname -a
+		Linux ubuntu20043-dtp 5.11.0-37-generic #41~20.04.2-Ubuntu SMP Fri Sep 24 09:06:38 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+	#
+	# download link: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+	#
+	cd
+	cd Downloads
+	#
+	# curl
+	# 		-L	follow redirects
+	#		-o	output filename
+	#
+	curl -Lo dropbox_2020.03.04_amd64.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+	
+	#
+	# oppure
+	#
+	
+	# wget
+	# 		-O output filename
+	#
+	wget -O dropbox_2020.03.04_amd64.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+	
+	#
+	# informazioni .deb
+	#
+	dpkg -I dropbox_2020.03.04_amd64.deb
+	dpkg --info dropbox_2020.03.04_amd64.deb
+
+	#
+	# installazione
+	#
+	sudo dpkg -i dropbox_2020.03.04_amd64.deb
+	
+	#
+	# visualizzare files installati
+	#
+	dpkg --listfiles dropbox
+	dpkg -L dropbox
+	
+	#
+	# verificare appartenenza file
+	#
+		#
+		# dropbox
+		#
+		dpkg -S /usr/lib/nautilus/extensions-2.0/libnautilus-dropbox.so
+			dropbox: /usr/lib/nautilus/extensions-2.0/libnautilus-dropbox.so
+		#
+		# java
+		#
+		which java
+			/usr/bin/java
+			
+		dpkg -S /usr/bin/java
+			dpkg-query: no path found matching pattern /usr/bin/java
+			
+		ll /usr/bin/java
+			lrwxrwxrwx 1 root root 22 ott 29 07:28 /usr/bin/java -> /etc/alternatives/java*
+			
+		update-alternatives --display java
+			java - auto mode
+			  link best version is /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+			  link currently points to /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+			  link java is /usr/bin/java
+			  slave java.1.gz is /usr/share/man/man1/java.1.gz
+			/usr/lib/jvm/java-11-openjdk-amd64/bin/java - priority 1111
+			  slave java.1.gz: /usr/lib/jvm/java-11-openjdk-amd64/man/man1/java.1.gz
+		
+		dpkg -S /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+			openjdk-11-jre-headless:amd64: /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+	
+	#
+	# elencare pacchetti installati
+	#
+	dpkg -l
+	
+	#
+	# cercare un pacchetto
+	#
+	dpkg -l tz*
+		Desired=Unknown/Install/Remove/Purge/Hold
+		| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+		|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+		||/ Name            Version              Architecture Description
+		+++-===============-====================-============-=======================================
+		ii  tzdata          2021e-0ubuntu0.20.04 all          time zone and daylight-saving time data
+		un  tzdata-bookworm <none>               <none>       (no description available)
+
+	#
+	# riconfigurare pacchetto
+	#
+	sudo dpkg-reconfigure tzdata
+	
+	#
+	# rimuovere pacchetto
+	#
+	sudo dpkg -r dropbox
+	
+	#
+	# eliminare pacchetto e config
+	#
+	sudo dpkg -P dropbox
+	sudo dpkg --purge dropbox
