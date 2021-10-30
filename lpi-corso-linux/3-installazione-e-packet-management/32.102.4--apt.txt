@@ -1,0 +1,11 @@
+apt
+apt list
+apt search <name-part>
+apt show [-a] <name>
+apt list [-a] <name>
+
+sudo apt update
+sudo apt upgrade
+sudo apt full-upgrade
+sudo apt install <name>
+sudo apt remove <name>
