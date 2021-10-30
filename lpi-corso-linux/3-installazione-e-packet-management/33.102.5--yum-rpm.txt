@@ -1,0 +1,67 @@
+################################################################################
+#
+#	RPM (dpkg per redhat...)
+#
+################################################################################
+
+#
+#	download dropbox rpm fedora
+#
+curl -Lo dropbox.rpm https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm
+#
+#	oppure
+#
+wget -O dropbox2.rpm https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm
+
+
+#
+#	Query Package Info
+#	visualizza info pacchetto da installare
+#
+rpm -qpi <file.rpm>
+	rpm -qpi dropbox.rpm
+#
+#	Query Package List
+#	lista alberatura destinazione files pacchetto da installare
+#
+rpm -qpl <file.rpm>
+	rpm -qpl dropbox.rpm
+
+#
+#	Query All
+#	lista pacchetti installati
+#
+rpm -qa
+
+#
+#	Query Info
+#	visualizza info pacchetto installato
+#
+rpm -qi <name from -qa>
+	rpm -qi openssh
+
+#
+#	Query List
+#	lista alberatura pacchetto installato
+#
+rpm -ql <name>
+	rpm -ql openssh
+#
+#	Query File
+#	reverse query da file installato a pacchetto
+#
+rpm -qf <path>
+
+#
+# i pacchetti rpm sono degli archivi cpio
+#
+rpm2cpio file.deb > file.cpio
+cpio -id < dropbox.cpio
+ls ./usr
+
+################################################################################
+#
+#	YUM (apt per redhat...)
+#
+################################################################################
+
