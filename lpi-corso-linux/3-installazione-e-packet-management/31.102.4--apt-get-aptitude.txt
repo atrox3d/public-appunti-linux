@@ -1,0 +1,33 @@
+apt-cache
+apt-cache search pdf
+apt-cache showpkg <pkgname>
+apt-cache stats
+apt-cache depends <pkgname>
+apt-cache rdepends <pkgname>
+apt-cache pkgnames <string>
+
+/etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install <pkgname>
+sudo apt-get -s install <pkgname>
+
+sudo apt-get install -d <pkgname>
+ls /var/cache/apt/archives/
+
+sudo apt-get -f install <pkgname>
+
+sudo apt-get clean
+
+sudo apt-get remove <pkgname>
+sudo apt-get autoremove <pkgname>
+
+sudo apt-get remove|autoremove --purge <pkgname>
+
+
+
+
+sudo aptitude search <pkgname>
+sudo aptitude install <pkgname>
+
+aptitude
+	ctrl+t menu
