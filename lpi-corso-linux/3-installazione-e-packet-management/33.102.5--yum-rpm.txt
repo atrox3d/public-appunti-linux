@@ -28,6 +28,11 @@ rpm -qpl <file.rpm>
 	rpm -qpl dropbox.rpm
 
 #
+#	installazione pacchetto
+#
+rpm -ih <file.rpm>
+
+#
 #	Query All
 #	lista pacchetti installati
 #
@@ -63,5 +68,102 @@ ls ./usr
 #
 #	YUM (apt per redhat...)
 #
+#
 ################################################################################
+#
+#	yum è stato deprecato in favore di dnf
+#	per controllare:
+#
+ll $(which yum)
+	lrwxrwxrwx. 1 root root 5 Mar 11  2021 /usr/bin/yum -> dnf-3*
+#
+#	la sintassi rimane quasi del tutto invariata
+#
+yum search <string>
+	yum search nmap
+#
+#	quale pacchetto contiene <nome>
+#
+yum provides <nome>
+	yum provides nmap
+#
+#	informazioni pacchetto <nome>
+#
+yum info <nome>
+	yum info nmap
 
+#
+#	aggiornare repos
+#
+sudo yum check-update
+sudo yum update
+
+#
+#	cercare e installare
+#
+yum list
+yum list <nome>
+sudo yum install <nome>
+
+#
+#	quale pacchetto installa il file
+#
+yum provides <path>
+	yum provides /usr/bin/ncat
+
+#
+#	disinstallare
+#
+sudo yum remove <nome>
+
+#
+#	gestione gruppi sw
+#
+yum group list
+yum group list "group name"
+yum group list *<name>*
+	Last metadata expiration check: 0:10:13 ago on Tue 02 Nov 2021 07:49:10 AM CET.
+	Available Environment Groups:
+	   Server with GUI
+	   Minimal Install
+	   Workstation
+	   Virtualization Host
+	   Custom Operating System
+	Installed Environment Groups:
+	   Server
+	Installed Groups:
+	   Container Management
+	   Headless Management
+	Available Groups:
+	   .NET Core Development
+	   RPM Development Tools
+	   Development Tools
+	   Graphical Administration Tools
+	   Legacy UNIX Compatibility
+	   Network Servers
+	   Scientific Support
+	   Security Tools
+	   Smart Card Support
+	   System Tools
+
+#
+#	info gruppi
+#
+yum group info "group name"
+yum group info *name*
+
+#
+#	installazione gruppi
+#
+sudo yum group install "group name"
+sudo yum group install *name*
+
+#
+#	in caso di dipendenze mancanti usando rpm
+#
+sudo rpm -ih <file.rpm>
+	error: Failed dependencies:
+	...
+
+# utilizzare yum per installarle
+sudo yum install dipendenza1 ...
