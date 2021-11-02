@@ -1,0 +1,5 @@
+#
+#	visto che yum è un symlink a dnf la sintassi di base è la stessa
+#	vedi 33.102.5
+#
+zypper è il gestore pacchetti di opensuse
