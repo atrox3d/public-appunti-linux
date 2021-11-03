@@ -1,0 +1,23 @@
+#
+#	su gnome: 
+#		- mouse dx/apri nel terminale
+#		- applicazioni/utilità/terminale
+#		- xterm (se presente)
+#
+
+#
+#	tty virtual console
+#		ctrl+alt+F{1-6}
+#
+
+#
+#	per uscire da una shell:
+#		- logout/exit (se una shell di login: su - user, su -l user)
+#		- exit (se shell non login: su user, bash)
+#		- ctrl+d
+#
+
+#
+#	eseguire comando e logout shell
+#		exec comando
+#
