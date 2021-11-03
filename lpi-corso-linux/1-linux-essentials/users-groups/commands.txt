@@ -9,19 +9,32 @@ useradd username \
 	-d /home/username \		# home dir
 	-m \					# create home
 	-s /bin/bash			# default shell
-	-G sudo					# add to groups
+	-G <sudo|wheel>			# add to groups
 
 # per copiare i gruppi da un altro utente
-GROUPS="$(groups username | cut -d':' -f2- | cut -d' -f3-)"
-                   |                         |
-                   |                         +- esclude gruppo omonimo
-				   +- esclude username
-GROUPS="${GROUPS// /,}"		# separa con virgole
-useradd ... -G $GROUPS
+GROUPS="$(groups <username> | cut -d':' -f2- | cut -d' ' -f3-)"
+                               |                |
+                               |                +- esclude gruppo omonimo
+							   |
+							   |
+				               +- esclude username
+#
+#	separa con virgole
+#
+GROUPS="${GROUPS// /,}"
+usermod <username> -G $GROUPS
+
+#
+#	esempio
+#
+useradd testuser -c "testuser" -d /home/testuser -m -s /bin/bash -G <sudo|wheel>
+GROUPS="$(groups <username> | cut -d':' -f2- | cut -d' ' -f3-)"
+GROUPS="${GROUPS// /,}"
+usermod testuser -G $GROUPS
 
 
 userdel username
-userdel -r username
+userdel -r username		# remove home directory and mail spool
 
 groupadd
 groupdel
