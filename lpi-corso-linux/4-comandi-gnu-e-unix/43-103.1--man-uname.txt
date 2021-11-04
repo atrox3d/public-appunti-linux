@@ -1,0 +1,71 @@
+#
+#   print kernel-name
+#
+uname
+uname -s
+    Linux
+
+#
+#   print all infos:
+#  -a, --all                print all information, in the following order,
+#                             except omit -p and -i if unknown:
+#
+#  -s, --kernel-name        print the kernel name
+#  -n, --nodename           print the network node hostname
+#  -r, --kernel-release     print the kernel release
+#  -v, --kernel-version     print the kernel version
+#  -m, --machine            print the machine hardware name
+#  -p, --processor          print the processor type (non-portable)
+#  -i, --hardware-platform  print the hardware platform (non-portable)
+#  -o, --operating-system   print the operating system
+#
+#      --help     display this help and exit
+#      --version  output version information and exit
+#
+uname -a
+    Linux ACER-W10 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+    |     |        |                               |                                  |      |      |      |
+    -s    |        |                               |                                  |      |      |      |
+          -n       |                               |                                  |      |      |      |
+                   -r                              |                                  |      |      |      |
+                                                   -v                                 |      |      |      |
+                                                                                       -m    |      |      |
+                                                                                             -p     |      |
+                                                                                                    -i     |
+                                                                                                           -o
+
+
+uname -a
+	Linux debian 4.19.0-17-686-pae #1 SMP Debian 4.19.194-3 (2021-07-18) i686 GNU/Linux
+#
+#	-s	Linux 
+#	-n	debian 
+#	-r	4.19.0-17-686-pae 
+#	-v	#1 SMP Debian 4.19.194-3 (2021-07-18) 
+#	-m	i686 
+#	-p unknown
+#	-i unknown
+#	-o	GNU/Linux
+#
+
+#
+#	utilizzo di uname -r per riferirsi alla release del kernel
+#
+sudo apt install linux-headers-$(uname -r)
+
+#
+#	man <comando>
+#
+man ls
+
+#
+#	which <comando>
+#
+which ls
+/bin/ls
+
+#
+#	whereis <comando>
+#
+whereis ls
+	ls: /bin/ls /usr/share/man/man1/ls.1.gz
