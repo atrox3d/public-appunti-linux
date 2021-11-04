@@ -1,0 +1,41 @@
+name=value
+export name
+export name=value
+unset name
+
+ps --forest
+
+#
+#	-o attivata
+#	+o disattivata
+#
+set +o
+	set +o allexport				# sempre export
+	set -o braceexpand
+	set -o emacs
+	set +o errexit
+	set +o errtrace
+	set +o functrace
+	set -o hashall
+	set -o histexpand
+	set -o history
+	set +o ignoreeof
+	set -o interactive-comments
+	set +o keyword
+	set -o monitor
+	set +o noclobber				# no overwrite
+	set +o noexec
+	set +o noglob
+	set +o nolog
+	set +o notify
+	set +o nounset
+	set +o onecmd
+	set +o physical
+	set +o pipefail
+	set +o posix
+	set +o privileged
+	set +o verbose
+	set +o vi
+	set +o xtrace
+
+echo $SHELLOPTS
