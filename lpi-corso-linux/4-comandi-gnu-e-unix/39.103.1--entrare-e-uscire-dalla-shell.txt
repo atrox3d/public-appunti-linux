@@ -21,3 +21,4 @@
 #	eseguire comando e logout shell
 #		exec comando
 #
+exec ping 8.8.8.8 -c 4
