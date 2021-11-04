@@ -1,0 +1,52 @@
+history
+
+less ~/.bash_history
+
+#
+#	eseguire comando nr.
+#	!<nr>
+#
+!20
+
+#
+#	usare ultimo parametro ultimo comando
+#	!$
+#
+ls .bash_history
+less !$
+
+#
+#	eseguire ultimo comando
+#	!!
+#
+!!
+
+#
+#	eseguire ultimo comando che inizia con stringa
+#	!<stringa>
+#
+!apt
+	apt-get update
+
+#
+#	ricerca history
+#	CTRL-R
+#	digitare stringa
+#	CTRL-R per cercare indietro
+#	ESC modifica linea di comando
+#
+
+#
+#	pulire history
+#	history -c
+#
+
+#
+#	disabilitare history expansion
+#
+set -o histexpand
+
+#
+#	saltare history per un comando
+#	[SPAZIO]comando
+#
