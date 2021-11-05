@@ -1,0 +1,34 @@
+#
+#	estrarre colonne
+#	cut -c<range> file
+#	dove <range>: 
+#					[start]-[stop]
+#					num,num,...
+#
+cut -c1-3,4-6 file.txt
+
+#
+#	estrarre campi tramite separatori
+#	cut -d'<separatore>' -f<range colonne> <file>
+#					[start]-[stop]
+#	dove <range>: 
+#					num,num,...
+#
+cut -d':' -f1 /etc/passwd
+
+#
+#	cut stampa tutti i campi se non trova il separatore
+#	a meno che non si specifichi -s
+#
+cut -sd'|' -f1 /etc/passwd
+
+#
+#	invertiree le colonne/campi selezionati per output
+#
+cut -d':' -f1 --complement /etc/passwd
+
+#
+#	cambiare il delimitarore in output
+#
+cut -d':' -f1- --output-delimiter='#' /etc/passwd
+cut -d':' -f1- --output-delimiter=$'\t' /etc/passwd
