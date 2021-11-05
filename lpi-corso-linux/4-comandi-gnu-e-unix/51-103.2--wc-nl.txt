@@ -1,0 +1,6 @@
+nl -i2
+nl -s.
+nl -w1
+nl -nrz
+
+wc -L

@@ -1,0 +1,42 @@
+#
+#	paste con un file è uguale a cat
+#
+#	con più di un file stampa le righe di ogni file affiancate e separate da tab
+#
+paste numeri1-10.txt numeri1-10.txt 
+	1       1
+	2       2
+	3       3
+	4       4
+	5       5
+	6       6
+	7       7
+	8       8
+	9       9
+	10      10
+
+#
+#	rimuove fine riga e separa con tab
+#
+paste -s numeri1-10.txt
+	1       2       3       4       5       6       7       8       9       10
+
+#
+#	usando il - come standard input stampa una riga per ogni -
+#
+cat numeri1-10.txt | paste - - -
+	1       2       3
+	4       5       6
+	7       8       9
+	10
+
+#
+#	specificando una serie di separatori cicla gli stessi per ogni riga
+#
+cat numeri1-10.txt | paste - - - -d-=+
+	1-2=3
+	4-5=6
+	7-8=9
+	10-=
+
+
