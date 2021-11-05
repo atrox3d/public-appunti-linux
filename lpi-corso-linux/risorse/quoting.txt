@@ -1,0 +1,31 @@
+Approfondimento: https://www.gnu.org/software/bash/manual/html_node/Quoting.html 
+
+
+IN QUESTO VIDEO:
+
+mkdir dichiarazione dei redditi 
+# crea 3 cartelle differenti invece di una cartella contenente gli spazi
+# dobbiamo fare l'escape del carattere spazio per suggerire a mkdir di interpretare il nome delle cartella come un singolo argomento.
+
+# PRIMO METODO DI ESCAPE: backslash
+rmdir dichiarazione\ dei\ redditi 
+# protegge solo il carattere immediatamente successivo (lo spazio in questo caso)
+
+
+# SECONDO METODO DI ESCAPE: apici singoli
+# proteggono tutti i simboli
+echo $USER
+# vs
+echo '$USER'
+# neanche la variabile USER viene espansa
+
+
+# TERZO METODO DI ESCAPE: doppi apici
+# non proteggono i simboli $ ` \ !
+# ma proteggono tutti gli altri simboli come ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’.
+echo $SHELL 
+echo $SHELL > shell.txt
+echo "$SHELL > shell.txt"
+
+# posso anche mixare doppi apici e backslash:
+echo "$USER mi deve \$5"
