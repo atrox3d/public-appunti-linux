@@ -1,0 +1,40 @@
+#
+#	divide il file in <n> files di 1000 righe ciascuno
+#
+#	split <filename>
+split 5k.txt
+ls
+	xa
+	xb
+	xc
+	xd
+	xe
+
+#
+#	divide il file in <n> files di <x> righe ciascuno
+#
+#	split  -l <x> <filename> [ prefix ] 
+#
+split -l 100 5k.txt prova
+ls
+	provaxaa
+	...
+	provaxbx
+
+#
+#	concatenazione
+#
+cat x*
+
+#
+#	suddividere files binari
+#
+#	split -b <size> <file>
+#
+split -b 5m video.mp4 video
+ls
+	videoxa
+	...
+
+# concatenare
+cat videox* > newvideo.mp4
