@@ -1,0 +1,15 @@
+#
+#	visualizza i caratteri speciali del file
+#
+cat -A <file>
+
+#
+#	tabs to spaces
+#
+expand <file> [ > <newfile> ]
+
+#
+#	spaces to tabs
+#
+unexpand <file> [ > <newfile> ]
+
