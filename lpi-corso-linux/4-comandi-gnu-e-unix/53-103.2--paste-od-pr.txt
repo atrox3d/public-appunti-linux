@@ -39,4 +39,3 @@ cat numeri1-10.txt | paste - - - -d-=+
 	7-8=9
 	10-=
 
-
