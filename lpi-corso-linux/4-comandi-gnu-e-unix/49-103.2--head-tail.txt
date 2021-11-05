@@ -1,0 +1,3 @@
+tail -F file
+tail -q file file file file
+
