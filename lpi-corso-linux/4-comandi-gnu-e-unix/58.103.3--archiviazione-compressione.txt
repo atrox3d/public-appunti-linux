@@ -1,0 +1,81 @@
+#
+#	archiviazione:	creare un archivio contenente più file e cartelle
+#	compressione:	comprimere un file o archivio
+#
+################################################################################
+
+################################################################################
+#
+#	gzip
+#
+################################################################################
+ls
+	file
+
+gzip [-k] file
+ls
+		file.gz
+zcat	file.gz
+	...
+
+gzip -l file.gz
+         compressed        uncompressed  ratio uncompressed_name
+               2541               27301  90.8% file
+
+gunzip [-k] file.gz
+ls
+	file
+
+################################################################################
+#
+#	xz
+#
+################################################################################
+ls
+	file
+
+xz -[k]z file
+ls
+	file.xz
+
+xzcat file.xz
+	...
+
+xz -l file.xz
+	...
+	
+xz -[k]d file.xz
+
+################################################################################
+#
+#	tar
+#
+################################################################################
+cp -rf /var/ .
+gzip var/
+	gzip: var/ is a directory -- ignored
+
+tar [-]cvzf var.tar.gz var/
+     | |||| |          |
+     | |||| |          + dir da comprimere
+     | |||| + nome file
+     | |||+ filename flag
+     | ||+ gzip
+     | |+ verbose
+     | + create
+     + optional
+
+tar -tvf var.tar.gz
+
+#
+#	estrazione
+#
+tar [-]xvzf var.tar.gz
+     | |||| |          
+     | |||| |          
+     | |||| + nome file
+     | |||+ filename flag
+     | ||+ gzip
+     | |+ verbose
+     | + extract
+     + optional
