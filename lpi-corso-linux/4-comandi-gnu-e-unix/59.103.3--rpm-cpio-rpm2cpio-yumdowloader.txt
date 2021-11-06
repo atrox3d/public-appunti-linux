@@ -1,0 +1,25 @@
+sudo yum install
+yumdownloader httpd --resolve
+rpm2cpio httpd-2.4.37-39.module_el8.4.0+950+0577e6ac.1.x86_64.rpm > httpd.cpio
+cpio -id <httpd.cpio
+ls -d */
+	etc/  run/  usr/  var/
+rpm2cpio httpd-2.4.37-39.module_el8.4.0+950+0577e6ac.1.x86_64.rpm | cpio -t
+	./etc/httpd/conf.d/autoindex.conf
+	./etc/httpd/conf.d/userdir.conf
+	./etc/httpd/conf.d/welcome.conf
+	./etc/httpd/conf.modules.d
+	./etc/httpd/conf.modules.d/00-base.conf
+	./etc/httpd/conf.modules.d/00-dav.conf
+	./etc/httpd/conf.modules.d/00-lua.conf
+	./etc/httpd/conf.modules.d/00-mpm.conf
+	./etc/httpd/conf.modules.d/00-optional.conf
+	./etc/httpd/conf.modules.d/00-proxy.conf
+	./etc/httpd/conf.modules.d/00-systemd.conf
+	./etc/httpd/conf.modules.d/01-cgi.conf
+	./etc/httpd/conf.modules.d/README
+	...
+
+mkdir httpd
+cpio -id < httpd.cpio -D httpd/
+find httpd/ | cpio -ov > x.cpio
