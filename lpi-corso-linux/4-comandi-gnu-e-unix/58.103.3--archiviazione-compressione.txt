@@ -70,7 +70,7 @@ tar -tvf var.tar.gz
 #
 #	estrazione
 #
-tar [-]xvzf var.tar.gz
+tar [-]xvzf var.tar.gz [-C path/ ]
      | |||| |          
      | |||| |          
      | |||| + nome file
