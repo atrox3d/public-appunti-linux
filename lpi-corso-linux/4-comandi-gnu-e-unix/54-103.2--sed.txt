@@ -1,0 +1,72 @@
+#
+# https://www.youtube.com/watch?v=fPii79dBQqY&list=PL4L8OWDC99_c1pppqEyT3FXuBPDI3Qx4F&ab_channel=morrolinux
+#
+
+#
+#	sintassi
+#		sed [comando]/cerca/sostituisci/[parametri] <file
+#		sed [comando]/cerca/sostituisci/[parametri] file
+#		cat file | sed [comando]/cerca/sostituisci/[parametri] 
+#
+
+
+#
+#	sostituzione prima occorrenza
+#		sed s/cerca/sostituisci/
+#
+echo "buon giorno giorno" | sed s/giorno/notte/
+	buon notte giorno
+#
+#	sostituzione ogni occorrenza
+#		sed s/cerca/sostituisci/g
+#
+echo "buon giorno giorno" | sed s/giorno/notte/g
+	buon notte notte
+
+#
+#	backslash escaping
+#	è possibile usare un carattere non presente nelle stringhe come separatore
+#
+echo /bin/sh | sed 's/\/bin\/sh/\/bin\/bash/'
+	/bin/bash
+
+echo /bin/sh | sed 's:/bin/sh:/bin/bash:'
+	/bin/bash
+
+#
+#	ancora più chiaro se uso here-strings
+#
+sed 's:/bin/sh:/bin/bash:' <<< /bin/bash
+	/bin/bash
+
+#
+#	riutilizzo match
+#	la & rappresenta il testo del match
+#
+sed 's/[a-z]*/(&)/g' <<< "ciao mamma"
+	(ciao) (mamma)
+
+#
+#	extended regex
+#	alcune espressioni come il + non vengono riconosciute
+#	senza l'attivazione delle extended regex
+#
+sed 's/[a-z]+/(&)/g' <<< "ciao mamma"
+	ciao mamma
+
+sed -r 's/[a-z]+/(&)/g' <<< "ciao mamma"
+(ciao) (mamma)
+
+#
+#	gruppi
+#
+sed 's/\([0-9]\+\) \([a-z]\+\)/\2 \1/' <<< "123 ciao"
+sed -r 's/([0-9]+) ([a-z]+)/\2 \1/' <<< "123 ciao"
+	ciao 123
+
+#
+#	i capturing groups possono essere usati nella ricerca
+#
+sed -r 's/([a-z]+) \1/\1/' <<< "ciao ciao"
+	ciao
+
