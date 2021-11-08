@@ -1,0 +1,9 @@
+ps
+ps -f
+ps -lf
+ps -e[lf]
+pgrep <string>
+kill -n
+pkill <string>
+killall [-s <signal>] [-u <user>] <nome>
+
