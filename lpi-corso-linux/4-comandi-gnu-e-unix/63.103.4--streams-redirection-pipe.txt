@@ -1,0 +1,8 @@
+set -o noclobber
+echo hello >| file
+echo {1..9} | xargs [-<n>] [command]
+find <path> [<path> ...] [options] | xargs [-n<n>] [command]
+
+command < inputfile >outputfile
+
+xargs -n1 <<< "one two three"
