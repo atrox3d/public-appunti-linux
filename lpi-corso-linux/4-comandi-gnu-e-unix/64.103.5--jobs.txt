@@ -1,0 +1,5 @@
+CTRL-Z
+jobs
+fg <n>
+bg <n>
+command &
