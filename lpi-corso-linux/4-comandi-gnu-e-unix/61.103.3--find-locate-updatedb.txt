@@ -13,3 +13,4 @@ find <path> -[i]name '<pattern>' -size [+|-]<n>{M|K|...}
 https://stackoverflow.com/questions/47799490/how-to-skip-multiple-directories-when-doing-a-find
 find . \( -path ./code -o -path ./.local -o -path ./cache -o -path ./?.git \) -prune -or -print
 
+find <path> [<path> ...] [options] | xargs [-n<n>] [command]
