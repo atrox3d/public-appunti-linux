@@ -1,0 +1,15 @@
+tmux [ new -s <session name> ]
+
+CTRL+b	c
+	CTRL+b	w
+	CTRL+b	n
+	CTRL+b	p
+
+CTRL+b	%
+CTRL+b	"
+	CTRL+b	<arrow>
+
+
+CTRL+b	d
+tmux a [ -t <session name> ]
+
