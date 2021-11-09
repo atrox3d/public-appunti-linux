@@ -1,4 +1,5 @@
 ps
+ps -l
 ps -f
 ps -lf
 ps -e[lf]

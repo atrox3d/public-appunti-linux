@@ -1,0 +1,22 @@
+sleep 1000&
+jobs
+ps -l
+
+nice -n 5 sleep 1000&
+ps -l
+
+nice -n 10 sleep 1000&
+ps -l
+
+renice -n <n> <pid>
+	#
+	#	0 <= currentnice <= n <19
+	#
+
+sudo renice -n <n> <pid>
+	#
+	#	-20 <= n <= 19
+	#
+
+sudo renice -n <n> -u <user>
+
