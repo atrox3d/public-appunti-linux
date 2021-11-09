@@ -1,0 +1,7 @@
+pgrep/ps/...
+cd /proc/<pid>
+ls
+file exe
+cat /proc/<pid>/cmdline
+cat /proc/<pid>/environ
+cat /proc/<pid>/status
