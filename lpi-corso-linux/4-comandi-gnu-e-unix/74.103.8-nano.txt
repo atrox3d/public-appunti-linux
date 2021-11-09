@@ -1,0 +1,7 @@
+echo $EDITOR
+file /etc/alternatives/editor
+	/etc/alternatives/editor: symbolic link to /bin/nano
+
+sudo EDITOR="/bin/nano" visudo
+
+
