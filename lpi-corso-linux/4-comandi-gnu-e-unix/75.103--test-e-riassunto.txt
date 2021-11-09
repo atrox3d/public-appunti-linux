@@ -1,0 +1,238 @@
+Test sul capitolo 103
+22 domande | 20 minuti | 80% di risposte corrette richieste per il superamento
+
+Istruzioni:
+
+Puoi interrompere il test quando vuoi e riprenderlo in un secondo momento.
+
+Puoi ripetere il test tutte le volte che vuoi.
+
+La barra in alto mostra i progressi e il tempo residuo del test. Se il tempo scade, non preoccuparti; potrai comunque portare a termine il test.
+
+Puoi saltare una domanda e tornarci al termine del test.
+
+Inoltre, puoi utilizzare "Da rivedere" per tornare alle domande su cui non sei sicuro prima di inviare il test.
+
+Per terminare il test e vedere subito i risultati, premi il pulsante di arresto.
+
+
+
+################################################################################
+
+
+Riassunto comandi più comuni
+Cap. 103
+
+Sommario dei comandi più comunemente utilizzati
+
+(da NON intendersi come formulario completo in preparazione all'esame. Per l'esame serve tutto.)
+
+
+
+
+
+Alias e type:
+
+
+
+type <comando> : distingue il comando tra alias, shell builtin, o percorso dell'eseguibile
+
+alias <abbreviazione>='<comando completo>' : crea un alias per digitare "abbreviazione" anzichè il comando completo
+
+
+
+
+
+Shell history:
+
+
+
+history : mostra i comandi digitati in precedenza
+
+history -c : pulisce la cronologia dei comandi
+
+CTRL+r : inizia la ricerca nella history
+
+!! : esegue nuovamente l'ultimo comando invocato
+
+!$ : richiama il parametro usato nell'ultimo comando invocato
+
+
+
+
+
+Manuale:
+
+
+
+man <comando>   : apre il manuale utente per il comando specificato (il manuale utente non è presente per i comandi shell builtin)
+
+<comando> --help  : mostra l'help per il programma specificato (solitamente più sintetico del man, presente anche per i builtin)
+
+
+
+
+
+Info sul sistema:
+
+
+
+uname -a : mostra tutte le info sul kernel in esecuzione
+
+uname -r : mostra solo il numero di versione del kernel
+
+
+
+
+
+Lavorare con i file di testo:
+
+Premessa: l'operatore ">" ha sempre il compito di redirigere l'output (stdout) sul file indicato.
+
+
+
+split -l 100 file.txt : divide file.txt in n file da 100 righe ciascuno
+
+split -b 5m video.mp4 : divide video.mp4 (file binario, non di testo!) in porzioni di 5 mb
+
+cat video* > unito.mp4 : unisce nuovamente tutti i file con prefisso nominale "video" nel file unito.mp4 (funziona con qualunque formato)
+
+cut -d ':' -f 1 ab.txt : imposta come separatore di colonna il carattere ":" e stampa la prima colonna
+
+cut -d ':' -f1,7 ab.txt : come sopra, ma stampa le colonne da 1 a 7
+
+
+
+head -n 10 file.txt : mostra solo le prime 10 righe di file.txt
+
+tail -n 10 file.txt : mostra solo le ultime 10 righe di file.txt
+
+
+
+wc -l file.txt : conta il numero di righe presenti in file.txt
+
+wc -c file.txt : conta il numero di caratteri presenti in file.txt
+
+
+
+less file.txt : visualizza file.txt poco per volta. usare le frecce per navigare il documento (su/giù)
+
+zcat file.txt.gz : visualizza file.txt.gz (compresso) senza bisogno di decomprimerlo
+
+bzcat file.txt.bz2 : come sopra, per i file compressi in formato bz2
+
+xzcat file.txt.xz : come sopra, per i file compressi in formato xz
+
+
+
+
+
+Gestione dei file:
+
+
+
+pwd : mostra il percorso della cartella in cui ci troviamo (directory locale)
+
+ls : mostra il contenuto della cartella in cui ci troviamo (directory locale)
+
+cd Scrivania : ci spostiamo con il terminale nella cartella chiamata "Scrivania" (deve esistere, con quel nome, nella directory locale)
+
+
+
+du -sh folder : restituisce la dimensione della cartella "folder", comprensiva di tutti i file in essa contenuti
+
+md5sum file : calcola la somma md5 per il dato file. può essere utile se confrontato con un una copia del file sicuramente integra.
+
+
+
+cp file.txt new.txt : crea una copia di file.txt chiamata new.txt
+
+cp -r cart1 cart2 : crea una copia della cartella cart1 (e ricorsivamente il suo contenuto) chiamata cart2
+
+mv old new : rinomina il file "old" come "new"
+
+mv old Desktop/new : sposta il file "old" sul Desktop, con il nome cambiato in "new"
+
+rm file.txt : elimina file.txt
+
+rm -r folder : elimina la cartella "folder" ed il suo contenuto (-f per rimuovere forzatamente)
+
+mkdir folder : crea la cartella "fodler"
+
+mkdir -p folder/ciao : crea la cartella "folder" e al suo interno la sottocartella "ciao" con un unico comando
+
+
+
+gzip file : genera un file compresso chiamato file.gz ELIMINANDO il file originale
+
+gunzip file.gz : estrae "file.gz" ELIMINANDO la sua verisone compressa con estensione .gz
+
+
+
+tar -czf var.tar.gz var : comprime la cartella "var" in un archivio chiamato "var.tar.gz"
+
+tar -xzf var.tar.gz : estrae nella cartella locale il contenuto dell'archivio var.tar.gz
+
+
+
+dd if=/file of=new : copia bit a bit il contenuto di "file" in "new". spesso usato per clonare supporti di memorizzazione di massa
+
+
+
+find / -iname "ciao" : cerca su tutto il filesystem ("/") i file chiamati "ciao" senza distinguere tra maiuscole e minuscole ("-iname")
+
+
+
+
+
+Streams, redireciton e pipes:
+
+
+
+ls > out.txt : redirige l'output di "ls" nel file out.txt
+
+ls 2> err.txt : redirige eventuali errori di "ls" nel file err.txt
+
+ls &> out.txt : redirige errori e output di "ls" nel file out.txt
+
+cat < in.txt : redirige l'input di cat per leggere "in.txt" (ma non è necessario usare l'operatore di redirezione con cat)
+
+prog1 | prog2 : redirige "al volo" l'output del programma "prog1" sull'input di "prog2"
+
+
+
+
+
+Gestione processi e risorse:
+
+
+
+CTRL+z : manda un processo in background (e in pausa)
+
+jobs : mostra i processi in background
+
+fg <n> : riporta in foreground (in primo piano) il processo n
+
+
+
+ps aux : mostra tutti i processi in esecuzione sulla macchina
+
+top / htop : mostra in maniera interattiva tutti i processi in esecuzione, compreso utilizzo delle risorse (stile task manager)
+
+free -m : mostra l'uso di memoria RAM
+
+df -h : mostra l'uso del disco (spazio libero per ogni partizione)
+
+iotop : (extra) mostra l'uso del disco (letture/scritture correnti, e da quali processi)
+
+
+
+nohup <cmd> : esegue il comando "cmd" in modo che non venga interrotto quando chiudiamo la shell o ci scolleghiamo
+
+
+
+kill [-S] <pid> : uccide il processo con un dato pid (-S specifica il codice di terminazione (-15, -9, ...))
+
+killall <nome> : uccide tutti i processi con un certo nome
+
+
