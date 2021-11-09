@@ -70,3 +70,8 @@ sed -r 's/([0-9]+) ([a-z]+)/\2 \1/' <<< "123 ciao"
 sed -r 's/([a-z]+) \1/\1/' <<< "ciao ciao"
 	ciao
 
+#
+#	inplace
+#
+#	sed -i <.ext> <command>
+#

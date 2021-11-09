@@ -1,0 +1,10 @@
+grep
+grep -i
+grep -w
+grep -E oppure egrep
+grep -F oppure fgrep
+
+find . -name '*.txt' -exec cat {} \; | sed 's/linux/windows/' | sed 's/Linux/Windows/' | grep -i windows
+
+
+man 7 regex
