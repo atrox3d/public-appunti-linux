@@ -1,0 +1,56 @@
+GPT vs MBR
+
+- MBR (Master Boot Record) è un sistema di partizionamento introdotto da IBM nel 1983
+	Il nome deriva dal fatto che il boot loader del sistema operativo risieda in un settore “speciale” all’inizio del disco.
+	In questa maniera, ogni PC non doveva fare altro che leggere i primi byte del disco, per caricare il boot loader.
+	Questo sistema ha avuto grande successo per lungo tempo, anche grazie alla sua semplicità.
+	Presenta però delle importanti limitazioni, non più al passo coi tempi:
+	- Funziona con dischi non più grandi di 2TB
+	- Supporta al massimo 4 partizioni primarie
+	- Se vogliamo più partizioni, dobbiamo rendere una di queste 4 “estesa” e creare al suo interno partizioni “logiche”
+
+- GPT (GUID Partition Table) fu progettato da Intel a fine anni 90, e finalmente introdotto nei primi PC intorno al 2010
+	Presenta un design più moderno e al passo coi tempi:
+	- Ogni partizione ha un identificatore univoco (GUID - Global Unique IDentifier)
+	- Supporta fino a 128 partizioni primarie
+	- La dimensione massima delle partizioni è molto maggiore di 2TB (diversi ZB)
+	- A differenza di MBR, le informazioni sullo schema delle partizioni sono salvate in più settori del disco (ridondanza)
+	 Quindi migliore resistenza alle corruzioni del disco
+	- Tramite i CRC (Cyclic Redundancy Check), GPT può controllare l’integrità dei dati e tentare la riparazione.
+	GPT ha preso piede recentemente in abbinata al sistema UEFI dei moderni computer, dove è molto comune trovare
+	una partizione UEFI (in realtà FAT32) di poche centinaia di MB, che sostituisce il settore speciale di MBR, contenendo il
+	boot loader del sistema operativo
+
+- Creare / modificare partizioni GPT in Linux
+	Non è diverso da quanto visto per le partizioni MBR, eccetto per il fatto che scegliamo il sistema di partizioni gpt in
+	parted:
+	ES:
+	parted /dev/sdb
+	mklabel gpt
+	e da qui possiamo iniziare la creazione delle partizioni nel modo usuale
+	mkpart …
+
+parlando dei filesystem all’interno delle partizioni…
+- FAT32 vs exFAT
+	FAT32, detto più comunemente FAT, sta per (32 Bit File Allocation Table) è stato (ed è tuttora) il filesystem più usato e
+	diffuso su sistemi di memorizzazione di massa di piccola taglia (chiavette, schede SD, …) principalmente per la sua
+	compatibilità con tutti i sistemi operativi (Windows , Mac e Linux possono leggerlo e scriverlo senza problemi)
+	Ma presenta le sue limitazioni:
+	- Dimensione massima (teorica) di una partizione FAT32: 16TB
+	- Dimensione massima di un file: 4GB (che è molto poco)
+	- F.S. molto soggetto a frammentazione dopo eliminazione / creazione di nuovi file
+
+- exFAT risolve queste limitazioni, mantenendo la compatibilità multipiattaforma. In particolare:
+	- Dimensione massima di un file: 16EB (1 milione di TB)
+	- Migliorate le prestazioni in termini di frammentazione
+	parlando dei filesystem nativi per Linux…
+
+- Btrfs
+	che sta per B-Tree FileSystem, è un filesystem moderno (funzionante ma ancora in fase di sviluppo) che fornisce
+	diverse funzionalità avanzate, come:
+	- supporto nativo per dispositivi multipli (RAID0, 1, 5, …)
+	- compressione zlib
+	- sotto-volumi (diverse radici del filesystem gestite da btrfs)
+	- snapshots
+	- conversione in-place (sul posto) da filesystem ext2/3/4
+	- e molto altro…! https://btrfs.wiki.kernel.org/index.php/Main_Page
