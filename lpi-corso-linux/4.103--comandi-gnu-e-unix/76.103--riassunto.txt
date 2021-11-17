@@ -1,22 +1,3 @@
-Test sul capitolo 103
-22 domande | 20 minuti | 80% di risposte corrette richieste per il superamento
-
-Istruzioni:
-
-Puoi interrompere il test quando vuoi e riprenderlo in un secondo momento.
-
-Puoi ripetere il test tutte le volte che vuoi.
-
-La barra in alto mostra i progressi e il tempo residuo del test. Se il tempo scade, non preoccuparti; potrai comunque portare a termine il test.
-
-Puoi saltare una domanda e tornarci al termine del test.
-
-Inoltre, puoi utilizzare "Da rivedere" per tornare alle domande su cui non sei sicuro prima di inviare il test.
-
-Per terminare il test e vedere subito i risultati, premi il pulsante di arresto.
-
-
-
 ################################################################################
 
 
