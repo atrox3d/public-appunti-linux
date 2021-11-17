@@ -1,0 +1,23 @@
+- FAT32 vs exFAT
+	FAT32, detto più comunemente FAT, sta per (32 Bit File Allocation Table) è stato (ed è tuttora) il filesystem più usato e
+	diffuso su sistemi di memorizzazione di massa di piccola taglia (chiavette, schede SD, …) principalmente per la sua
+	compatibilità con tutti i sistemi operativi (Windows , Mac e Linux possono leggerlo e scriverlo senza problemi)
+	Ma presenta le sue limitazioni:
+	- Dimensione massima (teorica) di una partizione FAT32: 16TB
+	- Dimensione massima di un file: 4GB (che è molto poco)
+	- F.S. molto soggetto a frammentazione dopo eliminazione / creazione di nuovi file
+
+- exFAT risolve queste limitazioni, mantenendo la compatibilità multipiattaforma. In particolare:
+	- Dimensione massima di un file: 16EB (1 milione di TB)
+	- Migliorate le prestazioni in termini di frammentazione
+	parlando dei filesystem nativi per Linux…
+
+- Btrfs
+	che sta per B-Tree FileSystem, è un filesystem moderno (funzionante ma ancora in fase di sviluppo) che fornisce
+	diverse funzionalità avanzate, come:
+	- supporto nativo per dispositivi multipli (RAID0, 1, 5, …)
+	- compressione zlib
+	- sotto-volumi (diverse radici del filesystem gestite da btrfs)
+	- snapshots
+	- conversione in-place (sul posto) da filesystem ext2/3/4
+	- e molto altro…! https://btrfs.wiki.kernel.org/index.php/Main_Page
